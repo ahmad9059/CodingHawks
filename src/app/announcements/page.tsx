@@ -9,8 +9,8 @@ import { AnnouncementCard } from '@/components/announcement-card';
 
 function AnnouncementSkeleton() {
   return (
-    <div className="flex flex-col space-x-4 rounded-xl border bg-card p-4 shadow md:flex-row">
-        <Skeleton className="h-48 w-full rounded-lg md:w-1/3" />
+    <div className="flex flex-col space-x-4 rounded-xl border bg-card p-4 shadow md:flex-row md:items-center">
+        <Skeleton className="h-48 w-full rounded-lg md:h-full md:w-1/3" />
         <div className="mt-4 flex-1 space-y-4 md:mt-0">
             <Skeleton className="h-6 w-3/4" />
             <Skeleton className="h-4 w-1/2" />
