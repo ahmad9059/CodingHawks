@@ -114,13 +114,6 @@ export default {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
-      backgroundImage: {
-        "grid-slate-100": `linear-gradient(90deg, transparent 24.5%, hsl(var(--border)) 25%, hsl(var(--border)) 25.5%, transparent 26%, transparent 74.5%, hsl(var(--border)) 75%, hsl(var(--border)) 75.5%, transparent 76%), linear-gradient(0deg, transparent 24.5%, hsl(var(--border)) 25%, hsl(var(--border)) 25.5%, transparent 26%, transparent 74.5%, hsl(var(--border)) 75%, hsl(var(--border)) 75.5%, transparent 76%)`,
-        "grid-slate-900": `linear-gradient(90deg, transparent 24.5%, hsl(var(--border)) 25%, hsl(var(--border)) 25.5%, transparent 26%, transparent 74.5%, hsl(var(--border)) 75%, hsl(var(--border)) 75.5%, transparent 76%), linear-gradient(0deg, transparent 24.5%, hsl(var(--border)) 25%, hsl(var(--border)) 25.5%, transparent 26%, transparent 74.5%, hsl(var(--border)) 75%, hsl(var(--border)) 75.5%, transparent 76%)`,
-      },
-      backgroundSize: {
-        "grid": "50px 50px",
-      }
     },
   },
   plugins: [require('tailwindcss-animate'), addVariablesForColors, require('@tailwindcss/typography'),],
