@@ -59,7 +59,7 @@ export function Header() {
         scrolled ? 'border-b border-border/20 bg-background/80 backdrop-blur-xl' : 'bg-transparent'
       )}
     >
-      <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
+      <div className="container mx-auto flex h-20 max-w-screen-xl items-center justify-between px-4 md:px-6">
         <div className="flex-1">
           <Logo />
         </div>
@@ -79,7 +79,7 @@ export function Header() {
 
         <div className="flex items-center justify-end gap-2 flex-1">
             <Button variant="ghost" asChild className="hidden md:flex">
-                <Link href="/#join-us" className="text-foreground/80 hover:text-primary">
+                <Link href="/#join-us" className="text-primary hover:text-foreground">
                     Join Us
                     <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>

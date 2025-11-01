@@ -7,7 +7,7 @@ import { ArrowRight } from 'lucide-react';
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background text-center">
+    <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden bg-background text-center">
       <div className="absolute inset-0 z-0 bg-gradient-to-t from-transparent via-transparent to-primary/10 dark:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] dark:from-transparent dark:via-background dark:to-primary/20"></div>
 
       <div className="relative z-10 flex flex-col items-center p-4">
@@ -23,7 +23,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-          className="font-headline text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl md:text-7xl lg:text-8xl"
+          className="font-headline text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl md:text-7xl"
         >
           Coding Hawks Society
         </motion.h1>
