@@ -9,9 +9,9 @@ import { AnnouncementCard } from '@/components/announcement-card';
 
 function AnnouncementSkeleton() {
   return (
-    <div className="flex flex-col space-x-4 rounded-xl border bg-card p-4 shadow md:flex-row md:items-center">
-        <Skeleton className="h-48 w-full rounded-lg md:h-full md:w-1/3" />
-        <div className="mt-4 flex-1 space-y-4 md:mt-0">
+    <div className="flex flex-col space-y-4 rounded-xl border bg-card p-4 shadow">
+        <Skeleton className="aspect-video w-full rounded-lg" />
+        <div className="flex-1 space-y-4">
             <Skeleton className="h-6 w-3/4" />
             <Skeleton className="h-4 w-1/2" />
             <Skeleton className="h-4 w-5/6" />
@@ -39,7 +39,7 @@ export default function AnnouncementsPage() {
 
   if (loading) {
     return (
-      <div className="space-y-8">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         <AnnouncementSkeleton />
         <AnnouncementSkeleton />
         <AnnouncementSkeleton />
@@ -48,7 +48,7 @@ export default function AnnouncementsPage() {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-8">
+    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
       {announcements.map((item, index) => (
         <MotionWrapper
           key={item.id}

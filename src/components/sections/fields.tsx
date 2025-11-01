@@ -32,7 +32,7 @@ const itemVariants = {
 function FieldCard({ field }: { field: Field }) {
   return (
     <motion.div variants={itemVariants} className="h-full">
-      <Card className="flex h-full transform-gpu flex-col items-start rounded-xl border bg-card p-8 shadow-sm transition-all duration-300 hover:border-primary hover:shadow-primary/10 hover:-translate-y-1">
+      <Card className="flex h-full transform-gpu flex-col items-start rounded-xl border bg-card p-8 shadow-sm transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-2">
         <div className="mb-5 rounded-lg bg-primary/10 p-4">
           <field.icon className="h-8 w-8 text-primary" />
         </div>

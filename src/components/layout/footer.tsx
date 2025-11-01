@@ -32,7 +32,7 @@ export function Footer() {
                         <li><Link href="/#about" className="text-foreground/70 transition-colors hover:text-primary">About Us</Link></li>
                         <li><Link href="/announcements" className="text-foreground/70 transition-colors hover:text-primary">Announcements</Link></li>
                         <li><Link href="/#fields" className="text-foreground/70 transition-colors hover:text-primary">Fields</Link></li>
-                         <li><Link href="/#achievements" className="text-foreground/70 transition-colors hover:text-primary">Achievements</Link></li>
+                         <li><Link href="/achievements" className="text-foreground/70 transition-colors hover:text-primary">Achievements</Link></li>
                     </ul>
                 </div>
                  <div>
@@ -43,7 +43,7 @@ export function Footer() {
                         <li><Link href="#" className="text-foreground/70 transition-colors hover:text-primary">Sponsor</Link></li>
                     </ul>
                 </div>
-                 <div className='col-span-2 md:col-span-1'>
+                 <div className='col-span-2 md:col-span-1 mt-8 md:mt-0'>
                     <h4 className='font-headline font-semibold mb-4 text-foreground'>Legal</h4>
                     <ul className='space-y-3'>
                         <li><Link href="#" className="text-foreground/70 transition-colors hover:text-primary">Privacy Policy</Link></li>

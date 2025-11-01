@@ -7,7 +7,6 @@ import { motion } from 'framer-motion';
 import { format } from 'date-fns';
 import { Calendar, Sparkles, Loader2 } from 'lucide-react';
 import type { Announcement } from '@/lib/types';
-import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -48,10 +47,10 @@ export function AnnouncementCard({ announcement }: { announcement: Announcement 
         <motion.a
           whileHover={{ y: -2, boxShadow: 'var(--tw-shadow-lg)' }}
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-          className="block"
+          className="block h-full"
         >
-          <Card className="group grid cursor-pointer grid-cols-1 items-center gap-6 overflow-hidden rounded-xl border bg-card p-4 shadow-sm transition-shadow duration-300 hover:shadow-primary/10 md:grid-cols-3">
-            <div className="relative aspect-video h-full w-full overflow-hidden rounded-md md:aspect-auto">
+          <div className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-xl border bg-card shadow-sm transition-shadow duration-300 hover:shadow-primary/10">
+            <div className="relative aspect-video w-full overflow-hidden">
               <Image
                 src={announcement.imageUrl}
                 alt={announcement.title}
@@ -59,8 +58,8 @@ export function AnnouncementCard({ announcement }: { announcement: Announcement 
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
             </div>
-            <div className="flex flex-1 flex-col justify-center md:col-span-2">
-              <div>
+            <div className="flex flex-1 flex-col p-6">
+              <div className="flex-1">
                 <h3 className="text-xl font-bold text-foreground">{announcement.title}</h3>
                 <div className="mt-2 flex items-center text-sm text-muted-foreground">
                   <Calendar className="mr-2 h-4 w-4" />
@@ -68,7 +67,7 @@ export function AnnouncementCard({ announcement }: { announcement: Announcement 
                     {format(new Date(announcement.date), 'MMMM d, yyyy')}
                   </time>
                 </div>
-                 <p className="mt-3 text-sm text-foreground/80 line-clamp-2">{announcement.description}</p>
+                <p className="mt-3 text-sm text-foreground/80 line-clamp-3">{announcement.description}</p>
               </div>
 
               <div className="mt-4 flex items-center justify-start">
@@ -83,7 +82,7 @@ export function AnnouncementCard({ announcement }: { announcement: Announcement 
                   </Button>
               </div>
             </div>
-          </Card>
+          </div>
         </motion.a>
       </Link>
 
