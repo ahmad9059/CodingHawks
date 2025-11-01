@@ -10,11 +10,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export function AnnouncementCard({ announcement }: { announcement: Announcement }) {
   return (
-    <Link href={`/announcements/${announcement.id}`} className="block h-full">
-      <motion.div
+    <Link href={`/announcements/${announcement.id}`} passHref legacyBehavior>
+      <motion.a
         whileHover={{ y: -8, scale: 1.02 }}
         transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-        className="h-full"
+        className="block h-full"
       >
         <Card className="group h-full cursor-pointer overflow-hidden rounded-xl border bg-card shadow-lg transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/10">
           <div className="overflow-hidden">
@@ -39,7 +39,7 @@ export function AnnouncementCard({ announcement }: { announcement: Announcement 
             <p className="text-foreground/80">{announcement.description}</p>
           </CardContent>
         </Card>
-      </motion.div>
+      </motion.a>
     </Link>
   );
 }
