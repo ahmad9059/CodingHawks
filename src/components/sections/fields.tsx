@@ -32,7 +32,7 @@ const itemVariants = {
 function FieldCard({ field }: { field: Field }) {
   return (
     <motion.div variants={itemVariants} className="h-full">
-      <Card className="flex h-full transform-gpu flex-col items-start rounded-xl border-2 border-transparent bg-card p-8 shadow-lg transition-all duration-300 hover:border-primary hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2">
+      <Card className="flex h-full transform-gpu flex-col items-start rounded-xl border bg-card p-8 shadow-sm transition-all duration-300 hover:border-primary hover:shadow-primary/10 hover:-translate-y-1">
         <div className="mb-5 rounded-lg bg-primary/10 p-4">
           <field.icon className="h-8 w-8 text-primary" />
         </div>
@@ -60,7 +60,7 @@ export function Fields() {
         </MotionWrapper>
         
         <motion.div 
-          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
