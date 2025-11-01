@@ -7,9 +7,9 @@ export function JoinUs() {
   const googleFormUrl = "https://docs.google.com/forms"; // Placeholder URL
 
   return (
-    <section id="join-us" className="relative overflow-hidden bg-secondary/30 py-20 lg:py-32">
+    <section id="join-us" className="relative overflow-hidden bg-background py-20 lg:py-32">
        <div className="absolute inset-0 z-0">
-         <div className="absolute inset-0 bg-gradient-to-t from-background to-secondary/10"></div>
+         <div className="absolute inset-0 bg-gradient-to-t from-background via-background to-secondary/10"></div>
        </div>
       <motion.div
         initial="hidden"

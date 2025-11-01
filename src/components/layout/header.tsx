@@ -11,8 +11,8 @@ import { Logo } from '@/components/logo';
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/announcements', label: 'Announcements' },
+  { href: '/achievements', label: 'Achievements' },
   { href: '/#fields', label: 'Fields' },
-  { href: '/#join-us', label: 'Join Us' },
 ];
 
 function useTheme() {
