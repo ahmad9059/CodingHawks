@@ -50,8 +50,8 @@ export function AnnouncementCard({ announcement }: { announcement: Announcement 
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           className="block h-full"
         >
-          <Card className="group flex h-full cursor-pointer flex-row overflow-hidden rounded-xl border bg-card p-4 shadow-lg transition-shadow duration-300 hover:shadow-primary/10">
-            <div className="relative aspect-square w-1/3 overflow-hidden rounded-lg md:w-1/4">
+          <Card className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-xl border bg-card shadow-lg transition-shadow duration-300 hover:shadow-primary/10">
+            <div className="relative aspect-video w-full overflow-hidden">
               <Image
                 src={announcement.imageUrl}
                 alt={announcement.title}
@@ -59,16 +59,16 @@ export function AnnouncementCard({ announcement }: { announcement: Announcement 
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
             </div>
-            <div className="flex flex-1 flex-col justify-between pl-6">
+            <div className="flex flex-1 flex-col justify-between p-6">
               <div>
-                <h3 className="text-2xl font-bold text-foreground">{announcement.title}</h3>
+                <h3 className="text-xl font-bold text-foreground">{announcement.title}</h3>
                 <div className="mt-2 flex items-center text-sm text-muted-foreground">
                   <Calendar className="mr-2 h-4 w-4" />
                   <time dateTime={announcement.date}>
                     {format(new Date(announcement.date), 'MMMM d, yyyy')}
                   </time>
                 </div>
-                 <p className="mt-2 text-sm text-foreground/80 line-clamp-2">{announcement.description}</p>
+                 <p className="mt-3 text-sm text-foreground/80 line-clamp-3">{announcement.description}</p>
               </div>
 
               <div className="mt-4 flex items-center justify-start">
