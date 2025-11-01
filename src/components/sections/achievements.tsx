@@ -22,15 +22,17 @@ export function Achievements() {
 
           <div className="space-y-16">
             {featuredAchievements.map((item, index) => (
-              <MotionWrapper key={index} amount={0.5} variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
+              <MotionWrapper key={item.id} amount={0.5} variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
                 <div className="relative flex items-center">
-                   <div className={`w-1/2 ${index % 2 === 0 ? 'pr-8' : 'pl-8'}`}>
+                   <div className={`w-1/2 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
                     {index % 2 === 0 && (
-                      <div className="relative rounded-xl border bg-card p-6 text-right shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-                        <p className="text-sm font-semibold text-primary">{item.year}</p>
-                        <h3 className="mt-1 text-xl font-bold text-foreground">{item.title}</h3>
-                        <p className="mt-2 text-foreground/70">{item.description}</p>
-                      </div>
+                      <Link href={`/achievements/${item.id}`} className="block">
+                        <div className="relative inline-block w-full rounded-xl border bg-card p-6 shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                          <p className="text-sm font-semibold text-primary">{item.year}</p>
+                          <h3 className="mt-1 text-xl font-bold text-foreground">{item.title}</h3>
+                          <p className="mt-2 text-foreground/70">{item.description}</p>
+                        </div>
+                      </Link>
                     )}
                   </div>
 
@@ -38,13 +40,15 @@ export function Achievements() {
                     <Trophy className="h-4 w-4 text-primary-foreground"/>
                   </div>
                   
-                   <div className={`w-1/2 ${index % 2 !== 0 ? 'pr-8' : 'pl-8'}`}>
+                   <div className={`w-1/2 ${index % 2 !== 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
                     {index % 2 !== 0 && (
-                      <div className="relative rounded-xl border bg-card p-6 shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-                        <p className="text-sm font-semibold text-primary">{item.year}</p>
-                        <h3 className="mt-1 text-xl font-bold text-foreground">{item.title}</h3>
-                        <p className="mt-2 text-foreground/70">{item.description}</p>
-                      </div>
+                       <Link href={`/achievements/${item.id}`} className="block">
+                        <div className="relative inline-block w-full rounded-xl border bg-card p-6 shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                          <p className="text-sm font-semibold text-primary">{item.year}</p>
+                          <h3 className="mt-1 text-xl font-bold text-foreground">{item.title}</h3>
+                          <p className="mt-2 text-foreground/70">{item.description}</p>
+                        </div>
+                      </Link>
                     )}
                   </div>
                 </div>

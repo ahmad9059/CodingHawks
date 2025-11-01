@@ -50,24 +50,32 @@ export const fieldsData: Field[] = [
 
 export const achievementsData: Achievement[] = [
   {
+    id: 'hackathon-winner-2024',
     year: '2024',
     title: 'Hackathon Winner',
     description: 'Our team secured the first place in the National Inter-University Hackathon.',
+    content: '<p>Our team showcased exceptional skill and innovation to win the prestigious National Inter-University Hackathon. The project, a solution for local farmers using AI-powered crop monitoring, was praised by judges for its real-world impact and technical sophistication. This victory is a testament to the talent and collaborative spirit of our members.</p>',
   },
   {
+    id: 'tech-conference-speaker-2024',
     year: '2024',
     title: 'Tech Conference Speaker',
     description: 'Society members were invited to speak at the Annual Tech Innovators Conference.',
+    content: '<p>Two of our senior members were honored with an invitation to speak at the Annual Tech Innovators Conference. They presented their research on scalable machine learning infrastructure, sharing the stage with industry leaders and academics. This was a significant recognition of their expertise and our society\'s contribution to the tech community.</p>',
   },
   {
+    id: 'open-source-contribution-2023',
     year: '2023',
     title: 'Open Source Contribution',
     description: 'Major contributions to a popular open-source machine learning library.',
+    content: '<p>Throughout 2023, several of our members made significant code contributions to a widely-used open-source machine learning library. Their work on improving the performance of data preprocessing modules has been merged into the main branch and is now used by thousands of developers worldwide.</p>',
   },
   {
+    id: 'coding-competition-victory-2023',
     year: '2023',
     title: 'Coding Competition Victory',
     description: 'Won the regional speed programming competition, setting a new record.',
+    content: '<p>The Coding Hawks competitive programming team dominated the regional speed programming competition. They solved a series of complex algorithmic challenges faster than any other team, setting a new record for the event and bringing home the championship trophy.</p>',
   },
 ];
 
@@ -142,6 +150,23 @@ export const getAnnouncementById = async (id: string): Promise<Announcement | nu
     setTimeout(() => {
       const announcement = announcementsData.find(a => a.id === id) || null;
       resolve(announcement);
+    }, 300);
+  });
+};
+
+export const getAchievements = async (): Promise<Achievement[]> => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(achievementsData);
+    }, 500);
+  });
+};
+
+export const getAchievementById = async (id: string): Promise<Achievement | null> => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      const achievement = achievementsData.find(a => a.id === id) || null;
+      resolve(achievement);
     }, 300);
   });
 };

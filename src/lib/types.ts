@@ -7,9 +7,11 @@ export type Field = {
 };
 
 export type Achievement = {
+  id: string;
   year: string;
   title: string;
   description: string;
+  content: string;
 };
 
 export type Announcement = {
