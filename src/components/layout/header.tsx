@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Moon, Sun, ArrowRight } from 'lucide-react';
+import { Menu, X, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
@@ -59,7 +59,7 @@ export function Header() {
         scrolled ? 'border-b border-border/20 bg-background/80 backdrop-blur-xl' : 'bg-transparent'
       )}
     >
-      <div className="container mx-auto flex h-20 max-w-screen-xl items-center justify-between px-4 md:px-6">
+      <div className="container mx-auto flex h-20 max-w-screen-lg items-center justify-between px-4 md:px-6">
         <div className="flex-1">
           <Logo />
         </div>
@@ -78,10 +78,9 @@ export function Header() {
         </nav>
 
         <div className="flex items-center justify-end gap-2 flex-1">
-            <Button variant="ghost" asChild className="hidden md:flex">
-                <Link href="/#join-us" className="text-primary hover:text-foreground">
+            <Button asChild className="hidden md:flex rounded-lg">
+                <Link href="/#join-us">
                     Join Us
-                    <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
             </Button>
              <Button variant="ghost" size="icon" onClick={toggleTheme}>

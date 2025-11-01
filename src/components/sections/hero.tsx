@@ -7,7 +7,7 @@ import { ArrowRight } from 'lucide-react';
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden bg-background text-center">
+    <section className="relative flex min-h-[80vh] items-center justify-center overflow-hidden bg-background pt-16 text-center">
       <div className="absolute inset-0 z-0 bg-gradient-to-t from-transparent via-transparent to-primary/10 dark:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] dark:from-transparent dark:via-background dark:to-primary/20"></div>
 
       <div className="relative z-10 flex flex-col items-center p-4">
@@ -17,13 +17,13 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="mb-6 rounded-full border border-border/60 bg-secondary/50 px-4 py-1.5 text-sm font-medium text-secondary-foreground shadow-sm"
         >
-          Announcing our next round of funding. <Link href="#" className="font-semibold text-primary underline-offset-4 hover:underline">Read more <ArrowRight className="inline h-4 w-4" /></Link>
+          Fueling Creativity, Collaboration, and Coding Excellence
         </motion.div>
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-          className="font-headline text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl md:text-7xl"
+          className="font-headline text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl"
         >
           Coding Hawks Society
         </motion.h1>
