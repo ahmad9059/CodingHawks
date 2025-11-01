@@ -46,12 +46,12 @@ export function AnnouncementCard({ announcement }: { announcement: Announcement 
     <>
       <Link href={`/announcements/${announcement.id}`} passHref legacyBehavior>
         <motion.a
-          whileHover={{ y: -5, boxShadow: 'var(--tw-shadow-xl)' }}
+          whileHover={{ y: -2, boxShadow: 'var(--tw-shadow-lg)' }}
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-          className="block h-full"
+          className="block"
         >
-          <Card className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-xl border bg-card shadow-lg transition-shadow duration-300 hover:shadow-primary/10">
-            <div className="relative aspect-video w-full overflow-hidden">
+          <Card className="group grid grid-cols-1 md:grid-cols-3 cursor-pointer overflow-hidden rounded-xl border bg-card shadow-md transition-shadow duration-300 hover:shadow-primary/10">
+            <div className="relative md:col-span-1 h-48 md:h-full w-full overflow-hidden">
               <Image
                 src={announcement.imageUrl}
                 alt={announcement.title}
@@ -59,7 +59,7 @@ export function AnnouncementCard({ announcement }: { announcement: Announcement 
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
             </div>
-            <div className="flex flex-1 flex-col justify-between p-6">
+            <div className="md:col-span-2 flex flex-1 flex-col justify-between p-6">
               <div>
                 <h3 className="text-xl font-bold text-foreground">{announcement.title}</h3>
                 <div className="mt-2 flex items-center text-sm text-muted-foreground">
@@ -68,7 +68,7 @@ export function AnnouncementCard({ announcement }: { announcement: Announcement 
                     {format(new Date(announcement.date), 'MMMM d, yyyy')}
                   </time>
                 </div>
-                 <p className="mt-3 text-sm text-foreground/80 line-clamp-3">{announcement.description}</p>
+                 <p className="mt-3 text-sm text-foreground/80 line-clamp-2">{announcement.description}</p>
               </div>
 
               <div className="mt-4 flex items-center justify-start">

@@ -9,16 +9,17 @@ import { AnnouncementCard } from '@/components/announcement-card';
 
 function AnnouncementSkeleton() {
   return (
-    <div className="flex flex-col space-y-4 rounded-xl border bg-card p-4 shadow">
-      <Skeleton className="h-40 w-full rounded-lg" />
-      <div className="flex-1 space-y-3 px-2">
-        <Skeleton className="h-6 w-3/4" />
-        <Skeleton className="h-4 w-1/2" />
-        <Skeleton className="h-4 w-5/6" />
-        <div className="flex items-center gap-2 pt-2">
-            <Skeleton className="h-6 w-24" />
+    <div className="flex flex-col md:flex-row space-x-4 rounded-xl border bg-card p-4 shadow">
+        <Skeleton className="h-48 w-full md:w-1/3 rounded-lg" />
+        <div className="flex-1 space-y-4 mt-4 md:mt-0">
+            <Skeleton className="h-6 w-3/4" />
+            <Skeleton className="h-4 w-1/2" />
+            <Skeleton className="h-4 w-5/6" />
+            <Skeleton className="h-4 w-full" />
+            <div className="flex items-center gap-2 pt-2">
+                <Skeleton className="h-8 w-28" />
+            </div>
         </div>
-      </div>
     </div>
   );
 }
@@ -38,7 +39,7 @@ export default function AnnouncementsPage() {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className="space-y-8">
         <AnnouncementSkeleton />
         <AnnouncementSkeleton />
         <AnnouncementSkeleton />
@@ -47,7 +48,7 @@ export default function AnnouncementsPage() {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-8">
       {announcements.map((item, index) => (
         <MotionWrapper
           key={item.id}
