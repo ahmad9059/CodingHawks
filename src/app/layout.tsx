@@ -3,6 +3,19 @@ import './globals.css';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
+import { Plus_Jakarta_Sans, DM_Sans } from 'next/font/google';
+import { cn } from '@/lib/utils';
+
+const fontBody = DM_Sans({
+  subsets: ['latin'],
+  variable: '--font-body',
+});
+
+const fontHeadline = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['600', '700', '800'],
+  variable: '--font-headline',
+});
 
 export const metadata: Metadata = {
   title: 'HawksCode - Coding Hawks Society',
@@ -16,15 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="!scroll-smooth">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="font-body flex min-h-screen flex-col bg-background text-foreground antialiased">
+      <body className={cn("font-body flex min-h-screen flex-col bg-background text-foreground antialiased", fontBody.variable, fontHeadline.variable)}>
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

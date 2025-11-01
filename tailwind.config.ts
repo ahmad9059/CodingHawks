@@ -1,4 +1,18 @@
 import type {Config} from 'tailwindcss';
+const {
+  default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
+
+function addVariablesForColors({ addBase, theme }: any) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+ 
+  addBase({
+    ":root": newVars,
+  });
+}
 
 export default {
   darkMode: ['class'],
@@ -8,10 +22,17 @@ export default {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       fontFamily: {
-        body: ['Inter', 'sans-serif'],
-        headline: ['Inter', 'sans-serif'],
+        body: ['var(--font-body)', 'sans-serif'],
+        headline: ['var(--font-headline)', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
@@ -93,7 +114,14 @@ export default {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      backgroundImage: {
+        "grid-slate-100": `linear-gradient(90deg, transparent 24.5%, hsl(var(--border)) 25%, hsl(var(--border)) 25.5%, transparent 26%, transparent 74.5%, hsl(var(--border)) 75%, hsl(var(--border)) 75.5%, transparent 76%), linear-gradient(0deg, transparent 24.5%, hsl(var(--border)) 25%, hsl(var(--border)) 25.5%, transparent 26%, transparent 74.5%, hsl(var(--border)) 75%, hsl(var(--border)) 75.5%, transparent 76%)`,
+        "grid-slate-900": `linear-gradient(90deg, transparent 24.5%, hsl(var(--border)) 25%, hsl(var(--border)) 25.5%, transparent 26%, transparent 74.5%, hsl(var(--border)) 75%, hsl(var(--border)) 75.5%, transparent 76%), linear-gradient(0deg, transparent 24.5%, hsl(var(--border)) 25%, hsl(var(--border)) 25.5%, transparent 26%, transparent 74.5%, hsl(var(--border)) 75%, hsl(var(--border)) 75.5%, transparent 76%)`,
+      },
+      backgroundSize: {
+        "grid": "50px 50px",
+      }
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), addVariablesForColors],
 } satisfies Config;

@@ -6,7 +6,6 @@ import { format } from 'date-fns';
 import { Calendar } from 'lucide-react';
 import type { Announcement } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 
 export function AnnouncementCard({ announcement }: { announcement: Announcement }) {
   return (
@@ -15,14 +14,14 @@ export function AnnouncementCard({ announcement }: { announcement: Announcement 
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       className="h-full"
     >
-      <Card className="h-full overflow-hidden rounded-xl shadow-md transition-shadow duration-300 hover:shadow-2xl">
+      <Card className="h-full overflow-hidden rounded-xl border bg-card shadow-lg transition-shadow duration-300 hover:shadow-2xl hover:shadow-primary/20">
         <div className="overflow-hidden">
           <Image
             src={announcement.imageUrl}
             alt={announcement.title}
             width={600}
             height={400}
-            className="aspect-[3/2] w-full object-cover"
+            className="aspect-[3/2] w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         </div>
         <CardHeader>
