@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Moon, Sun } from 'lucide-react';
+import { Menu, X, Moon, Sun, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
@@ -16,10 +16,10 @@ const navLinks = [
 ];
 
 function useTheme() {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('dark');
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem('theme') || 'light';
+    const storedTheme = localStorage.getItem('theme') || 'dark';
     setTheme(storedTheme);
   }, []);
 
@@ -60,23 +60,28 @@ export function Header() {
       )}
     >
       <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
-        <Logo />
-        <nav className="hidden items-center gap-2 md:flex">
+        <div className="flex-1">
+          <Logo />
+        </div>
+        
+        <nav className="hidden items-center justify-center gap-2 md:flex flex-1">
           {navLinks.map((link) => (
             <Button key={link.href} variant="ghost" asChild>
                 <Link
                 href={link.href}
-                className="text-base font-medium text-foreground/80 transition-colors hover:text-primary hover:bg-primary/5 px-4 py-2 rounded-md"
+                className="text-base font-medium text-foreground/80 transition-colors hover:text-primary hover:bg-transparent px-4 py-2 rounded-md"
                 >
                 {link.label}
                 </Link>
             </Button>
           ))}
         </nav>
-        <div className="flex items-center gap-2">
-            <Button asChild className="hidden md:flex rounded-full">
-                <Link href="/#join-us">
+
+        <div className="flex items-center justify-end gap-2 flex-1">
+            <Button variant="ghost" asChild className="hidden md:flex">
+                <Link href="/#join-us" className="text-foreground/80 hover:text-primary">
                     Join Us
+                    <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
             </Button>
              <Button variant="ghost" size="icon" onClick={toggleTheme}>

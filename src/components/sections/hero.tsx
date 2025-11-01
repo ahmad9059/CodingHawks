@@ -7,15 +7,17 @@ import { ArrowRight } from 'lucide-react';
 
 export function Hero() {
   return (
-    <section className="relative flex h-[85vh] items-center justify-center overflow-hidden bg-transparent p-4 text-center">
-      <div className="relative z-10 flex flex-col items-center">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background text-center">
+      <div className="absolute inset-0 z-0 bg-gradient-to-t from-transparent via-transparent to-primary/10 dark:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] dark:from-transparent dark:via-background dark:to-primary/20"></div>
+
+      <div className="relative z-10 flex flex-col items-center p-4">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mb-4 rounded-full border bg-secondary px-4 py-1.5 text-sm font-medium text-secondary-foreground"
+          className="mb-6 rounded-full border border-border/60 bg-secondary/50 px-4 py-1.5 text-sm font-medium text-secondary-foreground shadow-sm"
         >
-          Welcome to the Future of Code
+          Announcing our next round of funding. <Link href="#" className="font-semibold text-primary underline-offset-4 hover:underline">Read more <ArrowRight className="inline h-4 w-4" /></Link>
         </motion.div>
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -29,7 +31,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
-          className="mt-6 max-w-3xl text-lg text-foreground/70 md:text-xl lg:text-2xl"
+          className="mt-6 max-w-2xl text-lg text-foreground/70 md:text-xl"
         >
           Empowering the next generation of coders at MNS-University of Agriculture, Multan.
         </motion.p>
@@ -39,16 +41,16 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
           className="mt-10 flex flex-col gap-4 sm:flex-row"
         >
-          <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
-            <Button asChild size="lg" className="rounded-full shadow-lg shadow-primary/30">
-              <Link href="/#join-us">Join Us</Link>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button asChild size="lg" className="rounded-lg shadow-lg shadow-primary/30">
+              <Link href="/#join-us">Get Started</Link>
             </Button>
           </motion.div>
-          <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
-            <Button asChild size="lg" variant="outline" className="rounded-full">
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button asChild size="lg" variant="ghost" className="rounded-lg">
               <Link href="/#about">
-                Explore More
-                <ArrowRight className="ml-2 h-5 w-5" />
+                Learn More
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </motion.div>

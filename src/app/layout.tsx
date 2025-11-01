@@ -30,7 +30,7 @@ export default function RootLayout({
   const [themeLoaded, setThemeLoaded] = useState(false);
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem('theme') || 'light';
+    const storedTheme = localStorage.getItem('theme') || 'dark';
     if (storedTheme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
