@@ -8,6 +8,16 @@ import { ArrowRight } from "lucide-react";
 export function Hero() {
   return (
     <section className="relative flex min-h-[80vh] items-center justify-center overflow-hidden bg-background -mt-20 pt-20 py-16 text-center md:min-h-[95vh]">
+      {/* Dotted Grid Pattern Background */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `radial-gradient(circle, currentColor 1px, transparent 1px)`,
+          backgroundSize: "20px 20px",
+          opacity: 0.15,
+        }}
+      />
+
       <div className="absolute inset-0 z-0 bg-gradient-to-t from-transparent via-transparent to-primary/10 dark:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] dark:from-transparent dark:via-background dark:to-primary/20"></div>
 
       <div className="relative z-10 flex flex-col items-center p-4">
