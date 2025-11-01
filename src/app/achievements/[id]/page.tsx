@@ -23,17 +23,20 @@ function AchievementDetailSkeleton() {
 }
 
 export default function AchievementDetailPage({ params }: { params: { id: string } }) {
+  const { id } = params;
   const [achievement, setAchievement] = useState<Achievement | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!id) return;
+
     async function fetchData() {
-      const data = await getAchievementById(params.id);
+      const data = await getAchievementById(id);
       setAchievement(data);
       setLoading(false);
     }
     fetchData();
-  }, [params.id]);
+  }, [id]);
 
   if (loading) {
     return <AchievementDetailSkeleton />;

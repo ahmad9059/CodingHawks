@@ -14,14 +14,16 @@ export default function AchievementsPage() {
           <MotionWrapper key={item.id} amount={0.5} variants={{ hidden: { opacity: 0, y: 50 }, visible: { opacity: 1, y: 0 } }}>
             <div className="relative flex items-center">
               {/* Content */}
-              <div className={`w-1/2 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
-                 <Link href={`/achievements/${item.id}`} className="block">
-                    <div className="relative inline-block w-full max-w-md rounded-xl border bg-card p-6 shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-                      <p className="text-sm font-semibold text-primary">{item.year}</p>
-                      <h3 className="mt-1 text-xl font-bold text-foreground">{item.title}</h3>
-                      <p className="mt-2 text-foreground/70">{item.description}</p>
-                    </div>
-                  </Link>
+              <div className={`flex w-1/2 ${index % 2 === 0 ? 'justify-end pr-8' : 'pl-8'}`}>
+                 <div className={`${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
+                    <Link href={`/achievements/${item.id}`} className="block">
+                        <div className="relative inline-block w-full max-w-md rounded-xl border bg-card p-6 shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                          <p className="text-sm font-semibold text-primary">{item.year}</p>
+                          <h3 className="mt-1 text-xl font-bold text-foreground">{item.title}</h3>
+                          <p className="mt-2 text-foreground/70">{item.description}</p>
+                        </div>
+                    </Link>
+                 </div>
               </div>
 
               {/* Icon in the middle */}
@@ -29,7 +31,7 @@ export default function AchievementsPage() {
                 <Trophy className="h-4 w-4 text-primary-foreground" />
               </div>
 
-              {/* Spacer */}
+              {/* Spacer on the other side */}
               <div className="w-1/2"></div>
             </div>
           </MotionWrapper>
