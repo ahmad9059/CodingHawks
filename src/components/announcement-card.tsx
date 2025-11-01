@@ -50,8 +50,8 @@ export function AnnouncementCard({ announcement }: { announcement: Announcement 
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           className="block"
         >
-          <Card className="group grid grid-cols-1 md:grid-cols-3 cursor-pointer overflow-hidden rounded-xl border bg-card shadow-md transition-shadow duration-300 hover:shadow-primary/10">
-            <div className="relative md:col-span-1 h-48 md:h-full w-full overflow-hidden">
+          <Card className="group grid cursor-pointer grid-cols-1 gap-4 overflow-hidden rounded-xl border bg-card p-4 shadow-md transition-shadow duration-300 hover:shadow-primary/10 md:grid-cols-3">
+            <div className="relative h-48 w-full overflow-hidden rounded-lg md:h-full">
               <Image
                 src={announcement.imageUrl}
                 alt={announcement.title}
@@ -59,7 +59,7 @@ export function AnnouncementCard({ announcement }: { announcement: Announcement 
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
             </div>
-            <div className="md:col-span-2 flex flex-1 flex-col justify-between p-6">
+            <div className="flex flex-1 flex-col justify-between md:col-span-2">
               <div>
                 <h3 className="text-xl font-bold text-foreground">{announcement.title}</h3>
                 <div className="mt-2 flex items-center text-sm text-muted-foreground">
