@@ -18,4 +18,5 @@ export type Announcement = {
   description: string;
   date: string;
   imageUrl: string;
+  content: string;
 };

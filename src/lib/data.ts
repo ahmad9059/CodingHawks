@@ -82,6 +82,16 @@ export const announcementsData: Announcement[] = [
     description: 'Join us for a hands-on workshop covering the fundamentals of React and Next.js. Perfect for beginners!',
     date: '2024-08-15T10:00:00Z',
     imageUrl: announcementImage1,
+    content: `<p>This workshop is designed to get you up and running with two of the most popular technologies in modern web development: React and Next.js. We'll start from the very basics, so no prior experience is required. By the end of the session, you'll have built your first dynamic web application.</p>
+    <h3>What You'll Learn:</h3>
+    <ul>
+      <li>The core concepts of React: components, state, and props.</li>
+      <li>How to set up a new project using Next.js.</li>
+      <li>Building pages and creating routes.</li>
+      <li>Fetching data and displaying it in your application.</li>
+      <li>Styling your components with Tailwind CSS.</li>
+    </ul>
+    <p>Make sure to bring your laptop with Node.js and a code editor (like VS Code) installed. We can't wait to see you there!</p>`,
   },
   {
     id: '2',
@@ -89,6 +99,16 @@ export const announcementsData: Announcement[] = [
     description: 'Get ready for 24 hours of intense coding, innovation, and fun. Prizes worth thousands await the winners.',
     date: '2024-09-01T09:00:00Z',
     imageUrl: announcementImage2,
+    content: `<h2>The Ultimate Coding Challenge is Back!</h2>
+    <p>CodeRumble is our flagship annual hackathon, bringing together the brightest minds to solve real-world problems through technology. Whether you're a seasoned coder or just starting out, this is an opportunity to learn, collaborate, and create something amazing.</p>
+    <h3>Event Details:</h3>
+    <ul>
+      <li><strong>Duration:</strong> 24 hours straight.</li>
+      <li><strong>Team Size:</strong> 1-4 members.</li>
+      <li><strong>Prizes:</strong> Cash prizes, tech gadgets, and internship opportunities for the top 3 teams.</li>
+      <li><strong>Mentors:</strong> Industry experts will be available to guide you.</li>
+    </ul>
+    <p>Food, drinks, and plenty of coffee will be provided to keep you going. Register your team now and get ready to rumble!</p>`,
   },
   {
     id: '3',
@@ -96,16 +116,32 @@ export const announcementsData: Announcement[] = [
     description: 'Connect with industry professionals and fellow students. Keynote speech on the future of AI.',
     date: '2024-09-20T18:00:00Z',
     imageUrl: announcementImage3,
+    content: `<p>Join us for an evening of insightful talks, networking, and inspiration. This is a fantastic opportunity to connect with people from the tech industry, learn about career paths, and discuss the latest trends.</p>
+    <h3>Agenda:</h3>
+    <ul>
+      <li><strong>6:00 PM:</strong> Welcome & Networking</li>
+      <li><strong>7:00 PM:</strong> Keynote: "The AI Revolution: What's Next?" by industry veteran Jane Doe.</li>
+      <li><strong>8:00 PM:</strong> Q&A Session and Panel Discussion.</li>
+      <li><strong>8:30 PM:</strong> More Networking & Refreshments.</li>
+    </ul>
+    <p>Don't miss this chance to expand your professional network and gain valuable insights. The event is free, but seats are limited, so be sure to RSVP.</p>`,
   },
 ];
 
-// Mock function to simulate fetching data from Firestore
+// Mock function to simulate fetching data
 export const getAnnouncements = async (): Promise<Announcement[]> => {
-  // In a real app, you would fetch this from Firebase Firestore
-  // e.g., const snapshot = await getDocs(collection(db, "announcements"));
   return new Promise(resolve => {
     setTimeout(() => {
       resolve(announcementsData);
     }, 500); // Simulate network delay
+  });
+};
+
+export const getAnnouncementById = async (id: string): Promise<Announcement | null> => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      const announcement = announcementsData.find(a => a.id === id) || null;
+      resolve(announcement);
+    }, 300);
   });
 };
