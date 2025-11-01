@@ -27,14 +27,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const [loading, setLoading] = useState(true);
+  const [themeLoaded, setThemeLoaded] = useState(false);
 
   useEffect(() => {
+    const storedTheme = localStorage.getItem('theme') || 'light';
+    if (storedTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    setThemeLoaded(true);
+
     const timer = setTimeout(() => setLoading(false), 2200);
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <html lang="en" className="!scroll-smooth">
+    <html lang="en" className="!scroll-smooth" suppressHydrationWarning>
        <head>
         <title>HawksCode - Coding Hawks Society</title>
         <meta name="description" content="Empowering the next generation of coders at MNS-University of Agriculture, Multan." />
@@ -44,7 +53,7 @@ export default function RootLayout({
           {loading && <Loader />}
         </AnimatePresence>
         
-        <div className={cn('transition-opacity duration-500', loading ? 'opacity-0' : 'opacity-100')}>
+        <div className={cn('transition-opacity duration-500', loading || !themeLoaded ? 'opacity-0' : 'opacity-100')}>
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />

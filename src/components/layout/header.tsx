@@ -2,12 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 import { Logo } from '@/components/logo';
-import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -16,9 +15,34 @@ const navLinks = [
   { href: '/#join-us', label: 'Join Us' },
 ];
 
+function useTheme() {
+  const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(storedTheme);
+  }, []);
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
+
+  return { theme, toggleTheme };
+}
+
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,11 +74,14 @@ export function Header() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-            <Button asChild className="hidden md:flex rounded-full group overflow-hidden">
+            <Button asChild className="hidden md:flex rounded-full">
                 <Link href="/#join-us">
-                    <span className="group-hover:-translate-x-full transition-transform duration-300 ease-in-out">Join Us</span>
-                    <span className="absolute translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-in-out">Let's Go!</span>
+                    Join Us
                 </Link>
+            </Button>
+             <Button variant="ghost" size="icon" onClick={toggleTheme}>
+              {theme === 'light' ? <Moon className="h-6 w-6" /> : <Sun className="h-6 w-6" />}
+              <span className="sr-only">Toggle theme</span>
             </Button>
             <div className="md:hidden">
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>

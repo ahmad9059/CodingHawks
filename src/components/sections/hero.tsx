@@ -7,8 +7,9 @@ import { ArrowRight } from 'lucide-react';
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background p-4 text-center">
-       <div className="absolute inset-0 z-0 bg-grid-slate-100 [mask-image:linear-gradient(to_bottom,white_10%,transparent_90%)] dark:bg-grid-slate-900"></div>
+    <section className="relative flex h-[85vh] items-center justify-center overflow-hidden bg-background p-4 text-center">
+      <div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(hsl(var(--border))_1px,transparent_1px)] [background-size:16px_16px] dark:bg-black dark:bg-[radial-gradient(rgba(255,255,255,0.2)_1px,transparent_1px)] dark:bg-[size:20px_20px]"></div>
+
       <div className="relative z-10 flex flex-col items-center">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
