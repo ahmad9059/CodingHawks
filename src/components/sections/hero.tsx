@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden bg-background py-16 text-center md:min-h-[80vh]">
+    <section className="relative flex min-h-[80vh] items-center justify-center overflow-hidden bg-background -mt-20 pt-20 py-16 text-center md:min-h-[95vh]">
       <div className="absolute inset-0 z-0 bg-gradient-to-t from-transparent via-transparent to-primary/10 dark:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] dark:from-transparent dark:via-background dark:to-primary/20"></div>
 
       <div className="relative z-10 flex flex-col items-center p-4">
@@ -22,7 +22,7 @@ export function Hero() {
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="font-headline text-4xl font-extrabold tracking-tight text-foreground sm:text-6xl"
         >
           Coding Hawks Society
@@ -30,19 +30,24 @@ export function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
+          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           className="mt-6 max-w-2xl text-lg text-foreground/70 md:text-xl"
         >
-          Empowering the next generation of coders at MNS-University of Agriculture, Multan.
+          Empowering the next generation of coders at MNS-University of
+          Agriculture, Multan.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
+          transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
           className="mt-10 flex flex-col gap-4 sm:flex-row"
         >
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button asChild size="lg" className="rounded-lg shadow-lg shadow-primary/30">
+            <Button
+              asChild
+              size="lg"
+              className="rounded-lg shadow-lg shadow-primary/30"
+            >
               <Link href="/#join-us">Get Started</Link>
             </Button>
           </motion.div>

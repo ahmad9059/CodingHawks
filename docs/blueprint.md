@@ -1,4 +1,4 @@
-# **App Name**: HawksCode
+# **App Name**: CodingHawks
 
 ## Core Features:
 
