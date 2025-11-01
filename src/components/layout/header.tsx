@@ -19,17 +19,19 @@ function useTheme() {
   const [theme, setTheme] = useState('dark');
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem('theme') || 'dark';
+    const storedTheme = typeof window !== 'undefined' ? localStorage.getItem('theme') || 'dark' : 'dark';
     setTheme(storedTheme);
   }, []);
 
   useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
+    if (typeof window !== 'undefined') {
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      localStorage.setItem('theme', theme);
     }
-    localStorage.setItem('theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {
