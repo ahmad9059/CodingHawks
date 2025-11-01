@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Moon, Sun } from 'lucide-react';
+import { Menu, X, Moon, Sun, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
@@ -42,31 +42,17 @@ function useTheme() {
 }
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
-    <header
-      className={cn(
-        'sticky top-0 z-50 w-full transition-all duration-300',
-        scrolled ? 'border-b border-border/20 bg-background/80 backdrop-blur-xl' : 'bg-transparent'
-      )}
-    >
+    <header className="sticky top-0 z-50 w-full border-b border-border/20 bg-background">
       <div className="container mx-auto flex h-20 max-w-screen-xl items-center justify-between px-4 md:px-6">
-        <div className="flex flex-1 justify-start">
+        <div className="flex items-center">
           <Logo />
         </div>
         
-        <nav className="hidden items-center justify-center gap-2 md:flex flex-1">
+        <nav className="hidden items-center justify-center gap-2 md:flex">
           {navLinks.map((link) => (
             <Button key={link.href} variant="ghost" asChild>
                 <Link
@@ -79,13 +65,13 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center justify-end gap-2 flex-1">
+        <div className="flex items-center justify-end gap-2">
             <Button asChild className="hidden md:flex rounded-lg">
                 <Link href="/#join-us">
                     Join Us
                 </Link>
             </Button>
-             <Button variant="ghost" size="icon" onClick={toggleTheme}>
+             <Button variant="ghost" size="icon" onClick={toggleTheme} className="hidden md:flex">
               {theme === 'light' ? <Moon className="h-6 w-6" /> : <Sun className="h-6 w-6" />}
               <span className="sr-only">Toggle theme</span>
             </Button>
@@ -121,6 +107,13 @@ export function Header() {
                      <Button asChild className="mt-8 w-full rounded-full">
                         <Link href="/#join-us">Join Us</Link>
                     </Button>
+                    <div className="mt-auto flex items-center justify-between">
+                        <span>Switch Theme</span>
+                         <Button variant="ghost" size="icon" onClick={toggleTheme}>
+                            {theme === 'light' ? <Moon className="h-6 w-6" /> : <Sun className="h-6 w-6" />}
+                            <span className="sr-only">Toggle theme</span>
+                        </Button>
+                    </div>
                 </div>
                 </SheetContent>
             </Sheet>
