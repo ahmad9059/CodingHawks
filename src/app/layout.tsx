@@ -48,14 +48,14 @@ export default function RootLayout({
         <title>HawksCode - Coding Hawks Society</title>
         <meta name="description" content="Empowering the next generation of coders at MNS-University of Agriculture, Multan." />
       </head>
-      <body className={cn("font-body flex min-h-screen flex-col bg-background text-foreground antialiased", fontBody.variable, fontHeadline.variable)}>
+      <body className={cn("font-body flex min-h-screen flex-col text-foreground antialiased", fontBody.variable, fontHeadline.variable)}>
         <AnimatePresence>
           {loading && <Loader />}
         </AnimatePresence>
         
         <div className={cn('transition-opacity duration-500', loading || !themeLoaded ? 'opacity-0' : 'opacity-100')}>
           <Header />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 bg-background">{children}</main>
           <Footer />
           <Toaster />
         </div>
