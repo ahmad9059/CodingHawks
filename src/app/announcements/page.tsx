@@ -9,11 +9,15 @@ import { AnnouncementCard } from '@/components/announcement-card';
 
 function AnnouncementSkeleton() {
   return (
-    <div className="flex flex-col space-y-3">
-      <Skeleton className="h-[250px] w-full rounded-xl" />
-      <div className="space-y-2">
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[200px]" />
+    <div className="flex space-x-4 rounded-xl border bg-card p-4 shadow">
+      <Skeleton className="h-32 w-32 rounded-lg" />
+      <div className="flex-1 space-y-3">
+        <Skeleton className="h-6 w-3/4" />
+        <Skeleton className="h-4 w-1/2" />
+        <Skeleton className="h-4 w-1/4" />
+        <div className="flex items-center gap-2 pt-2">
+            <Skeleton className="h-6 w-24" />
+        </div>
       </div>
     </div>
   );
@@ -34,7 +38,7 @@ export default function AnnouncementsPage() {
 
   if (loading) {
     return (
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mx-auto max-w-4xl space-y-8">
         <AnnouncementSkeleton />
         <AnnouncementSkeleton />
         <AnnouncementSkeleton />
@@ -43,13 +47,13 @@ export default function AnnouncementsPage() {
   }
 
   return (
-    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="mx-auto max-w-4xl space-y-8">
       {announcements.map((item, index) => (
-        <MotionWrapper 
-          key={item.id} 
-          variants={{ 
-            hidden: { opacity: 0, y: 50 }, 
-            visible: { opacity: 1, y: 0, transition: { delay: index * 0.1 } } 
+        <MotionWrapper
+          key={item.id}
+          variants={{
+            hidden: { opacity: 0, y: 50 },
+            visible: { opacity: 1, y: 0, transition: { delay: index * 0.1 } },
           }}
         >
           <AnnouncementCard announcement={item} />

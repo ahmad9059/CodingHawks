@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { format } from 'date-fns';
 import { Calendar, Sparkles, Loader2 } from 'lucide-react';
 import type { Announcement } from '@/lib/types';
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -46,43 +46,43 @@ export function AnnouncementCard({ announcement }: { announcement: Announcement 
     <>
       <Link href={`/announcements/${announcement.id}`} passHref legacyBehavior>
         <motion.a
-          whileHover={{ y: -5 }}
+          whileHover={{ y: -5, boxShadow: 'var(--tw-shadow-xl)' }}
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           className="block h-full"
         >
-          <Card className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-xl border bg-card shadow-lg transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/10">
-            <div className="overflow-hidden">
+          <Card className="group flex h-full cursor-pointer flex-row overflow-hidden rounded-xl border bg-card p-4 shadow-lg transition-shadow duration-300 hover:shadow-primary/10">
+            <div className="relative aspect-square w-1/3 overflow-hidden rounded-lg md:w-1/4">
               <Image
                 src={announcement.imageUrl}
                 alt={announcement.title}
-                width={600}
-                height={400}
-                className="aspect-[3/2] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
             </div>
-            <CardHeader>
-              <div className="flex items-center text-sm text-muted-foreground">
-                <Calendar className="mr-2 h-4 w-4" />
-                <time dateTime={announcement.date}>
-                  {format(new Date(announcement.date), 'MMMM d, yyyy')}
-                </time>
+            <div className="flex flex-1 flex-col justify-between pl-6">
+              <div>
+                <h3 className="text-2xl font-bold text-foreground">{announcement.title}</h3>
+                <div className="mt-2 flex items-center text-sm text-muted-foreground">
+                  <Calendar className="mr-2 h-4 w-4" />
+                  <time dateTime={announcement.date}>
+                    {format(new Date(announcement.date), 'MMMM d, yyyy')}
+                  </time>
+                </div>
+                 <p className="mt-2 text-sm text-foreground/80 line-clamp-2">{announcement.description}</p>
               </div>
-              <CardTitle className="mt-2 text-xl font-bold">{announcement.title}</CardTitle>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <p className="text-foreground/80">{announcement.description}</p>
-            </CardContent>
-            <CardFooter className="p-4">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="w-full justify-start gap-2 text-primary hover:bg-primary/10 hover:text-primary"
-                onClick={handleSummaryClick}
-              >
-                <Sparkles className="h-4 w-4" />
-                <span>AI Summary</span>
-              </Button>
-            </CardFooter>
+
+              <div className="mt-4 flex items-center justify-start">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="gap-2 px-3 text-primary hover:bg-primary/10 hover:text-primary"
+                    onClick={handleSummaryClick}
+                  >
+                    <Sparkles className="h-4 w-4" />
+                    <span>AI Summary</span>
+                  </Button>
+              </div>
+            </div>
           </Card>
         </motion.a>
       </Link>
