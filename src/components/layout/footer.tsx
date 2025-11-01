@@ -11,7 +11,7 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t bg-secondary/50">
+    <footer className="border-t bg-secondary/30">
       <div className="container mx-auto px-4 py-12 md:px-6">
         <div className="grid gap-12 md:grid-cols-3">
             <div className='flex flex-col items-start gap-4'>
@@ -20,7 +20,7 @@ export function Footer() {
             </div>
             <div className='grid grid-cols-2 gap-8'>
                 <div>
-                    <h4 className='font-headline font-semibold mb-4'>Explore</h4>
+                    <h4 className='font-headline font-semibold mb-4 text-foreground'>Explore</h4>
                     <ul className='space-y-3'>
                         <li><Link href="/#about" className="text-foreground/70 transition-colors hover:text-primary">About Us</Link></li>
                         <li><Link href="/announcements" className="text-foreground/70 transition-colors hover:text-primary">Announcements</Link></li>
@@ -28,7 +28,7 @@ export function Footer() {
                     </ul>
                 </div>
                  <div>
-                    <h4 className='font-headline font-semibold mb-4'>Connect</h4>
+                    <h4 className='font-headline font-semibold mb-4 text-foreground'>Connect</h4>
                     <ul className='space-y-3'>
                         <li><Link href="/#join-us" className="text-foreground/70 transition-colors hover:text-primary">Join Us</Link></li>
                         <li><Link href="#" className="text-foreground/70 transition-colors hover:text-primary">Contact</Link></li>
@@ -36,11 +36,11 @@ export function Footer() {
                 </div>
             </div>
              <div className='md:text-right'>
-                <h4 className='font-headline font-semibold mb-4'>Follow Us</h4>
+                <h4 className='font-headline font-semibold mb-4 text-foreground'>Follow Us</h4>
                 <div className="flex items-center gap-4 md:justify-end">
                     {socialLinks.map((social) => (
-                    <Link key={social.name} href={social.href} aria-label={social.name} target="_blank" rel="noopener noreferrer">
-                        <social.icon className="h-6 w-6 text-foreground/60 transition-colors hover:text-primary" />
+                    <Link key={social.name} href={social.href} aria-label={social.name} target="_blank" rel="noopener noreferrer" className="text-foreground/60 transition-colors hover:text-primary">
+                        <social.icon className="h-6 w-6" />
                     </Link>
                     ))}
                 </div>

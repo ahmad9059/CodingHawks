@@ -10,11 +10,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 export function AnnouncementCard({ announcement }: { announcement: Announcement }) {
   return (
     <motion.div
-      whileHover={{ y: -8, scale: 1.03 }}
+      whileHover={{ y: -8, scale: 1.02 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       className="h-full"
     >
-      <Card className="h-full overflow-hidden rounded-xl border bg-card shadow-lg transition-shadow duration-300 hover:shadow-2xl hover:shadow-primary/20">
+      <Card className="group h-full overflow-hidden rounded-xl border bg-card shadow-lg transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/10">
         <div className="overflow-hidden">
           <Image
             src={announcement.imageUrl}

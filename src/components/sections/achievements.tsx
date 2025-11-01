@@ -4,7 +4,7 @@ import { MotionWrapper } from '@/components/motion-wrapper';
 
 export function Achievements() {
   return (
-    <section id="achievements" className="bg-secondary/50 py-20 lg:py-32">
+    <section id="achievements" className="bg-secondary/30 py-20 lg:py-32">
       <div className="container mx-auto px-4 md:px-6">
         <MotionWrapper amount={0.2} className="mb-20 text-center">
           <h2 className="font-headline text-4xl font-bold tracking-tight text-foreground sm:text-5xl">Our Achievements</h2>
@@ -14,7 +14,7 @@ export function Achievements() {
         </MotionWrapper>
 
         <div className="relative">
-          <div className="absolute left-4 h-full w-1 bg-border md:left-1/2 md:-translate-x-1/2" aria-hidden="true"></div>
+          <div className="absolute left-4 h-full w-0.5 bg-border md:left-1/2 md:-translate-x-1/2" aria-hidden="true"></div>
 
           <div className="space-y-16">
             {achievementsData.map((item, index) => (
