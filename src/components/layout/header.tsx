@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Moon, Sun, ArrowRight } from "lucide-react";
+import { Menu, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 
 const navLinks = [
@@ -60,7 +59,7 @@ export function Header() {
             <Button key={link.href} variant="ghost" asChild>
               <Link
                 href={link.href}
-                className="text-base font-medium text-foreground/80 transition-colors hover:text-primary hover:bg-transparent px-4 py-2 rounded-md"
+                className="text-base font-medium text-white transition-colors hover:text-white/80 hover:bg-white/10 px-4 py-2 rounded-md"
               >
                 {link.label}
               </Link>
@@ -76,7 +75,7 @@ export function Header() {
             variant="ghost"
             size="icon"
             onClick={toggleTheme}
-            className="hidden md:flex"
+            className="hidden md:flex text-white hover:bg-white/10"
           >
             {theme === "light" ? (
               <Moon className="h-6 w-6" />
@@ -89,7 +88,7 @@ export function Header() {
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
-                  <Menu className="h-6 w-6" />
+                  <Menu className="h-6 w-6 text-white" />
                   <span className="sr-only">Open menu</span>
                 </Button>
               </SheetTrigger>
@@ -98,16 +97,8 @@ export function Header() {
                 className="w-[300px] sm:w-[400px] bg-background"
               >
                 <div className="flex h-full flex-col p-6">
-                  <div className="mb-8 flex items-center justify-between">
+                  <div className="mb-8 flex items-center">
                     <Logo />
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <X className="h-6 w-6" />
-                      <span className="sr-only">Close menu</span>
-                    </Button>
                   </div>
                   <nav className="flex flex-col gap-6">
                     {navLinks.map((link) => (

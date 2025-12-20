@@ -7,7 +7,7 @@ export function Logo({ className }: { className?: string }) {
     <Link
       href="/"
       className={cn(
-        "flex items-center gap-3 text-foreground transition-colors hover:text-primary",
+        "flex items-center gap-3 text-white transition-colors hover:text-white/80",
         className
       )}
     >
