@@ -119,7 +119,7 @@ export function Hero({ sliderImages }: { sliderImages: SliderImage[] }) {
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="font-headline text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-white mb-6"
         >
-          <span className="bg-gradient-to-r from-white via-purple-200 to-zinc-100 bg-clip-text text-transparent drop-shadow-2xl">
+          <span className="bg-gradient-to-r from-white via-purple-200 to-purple-500 bg-clip-text text-transparent drop-shadow-2xl">
             Coding Hawks
           </span>
           <br />
@@ -131,7 +131,7 @@ export function Hero({ sliderImages }: { sliderImages: SliderImage[] }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          className="mt-4 max-w-3xl text-xl md:text-2xl text-white/95 drop-shadow-lg font-light leading-relaxed"
+          className="mt-4 max-w-3xl text-xl md:text-2xl text-white/95 drop-shadow-lg font-medium leading-relaxed"
         >
           Empowering the next generation of{" "}
           <span className="font-semibold bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
@@ -177,7 +177,7 @@ export function Hero({ sliderImages }: { sliderImages: SliderImage[] }) {
             <Button
               asChild
               size="lg"
-              className="relative rounded-xl px-8 py-4 text-lg font-semibold bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-2xl shadow-purple-500/25 border-0 overflow-hidden"
+              className="relative rounded-xl px-8 py-4 text-lg font-semibold   hover:from-purple-700 hover:to-pink-700 shadow-2xl shadow-purple-500/25 border-0 overflow-hidden"
             >
               <Link href="/#join-us">
                 <span className="relative z-10">Get Started</span>
@@ -210,7 +210,7 @@ export function Hero({ sliderImages }: { sliderImages: SliderImage[] }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.2 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="absolute -bottom-20 left-1/2 -translate-x-1/2"
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
