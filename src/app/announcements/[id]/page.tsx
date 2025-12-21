@@ -91,22 +91,26 @@ export default async function AnnouncementDetailPage({
             </div>
 
             {/* Custom Button - if enabled */}
-            {announcement.buttonEnabled &&
-              announcement.buttonText &&
-              announcement.buttonUrl && (
+            {(announcement as any).buttonEnabled &&
+              (announcement as any).buttonText &&
+              (announcement as any).buttonUrl && (
                 <div className="mt-8 not-prose">
                   <Button
                     asChild
                     size="lg"
-                    className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+                    className="text-white hover:opacity-90 transition-opacity"
+                    style={{ backgroundColor: "#5D1A75" }}
                   >
                     <a
-                      href={ensureAbsoluteUrl(announcement.buttonUrl) || "#"}
+                      href={
+                        ensureAbsoluteUrl((announcement as any).buttonUrl) ||
+                        "#"
+                      }
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2"
                     >
-                      {announcement.buttonText}
+                      {(announcement as any).buttonText}
                       <ExternalLink className="h-5 w-5" />
                     </a>
                   </Button>

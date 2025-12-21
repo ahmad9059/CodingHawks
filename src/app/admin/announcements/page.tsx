@@ -23,7 +23,7 @@ export default async function AdminAnnouncementsPage() {
         </p>
       </div>
 
-      <AnnouncementManager initialAnnouncements={announcements} />
+      <AnnouncementManager initialAnnouncements={announcements as any} />
     </div>
   );
 }

@@ -108,22 +108,26 @@ export default async function AnnouncementsPage() {
               </div>
 
               {/* Custom Button - Above the card link */}
-              {announcement.buttonEnabled &&
-                announcement.buttonText &&
-                announcement.buttonUrl && (
+              {(announcement as any).buttonEnabled &&
+                (announcement as any).buttonText &&
+                (announcement as any).buttonUrl && (
                   <div className="relative z-20 mt-4 pt-4 border-t border-border/50">
                     <Button
                       asChild
                       size="sm"
-                      className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+                      className="w-full text-white hover:opacity-90 transition-opacity"
+                      style={{ backgroundColor: "#5D1A75" }}
                     >
                       <a
-                        href={ensureAbsoluteUrl(announcement.buttonUrl) || "#"}
+                        href={
+                          ensureAbsoluteUrl((announcement as any).buttonUrl) ||
+                          "#"
+                        }
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2"
                       >
-                        {announcement.buttonText}
+                        {(announcement as any).buttonText}
                         <ExternalLink className="h-4 w-4" />
                       </a>
                     </Button>

@@ -91,7 +91,8 @@ export default async function AchievementDetailPage({
                   <Button
                     asChild
                     size="lg"
-                    className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+                    className="text-white hover:opacity-90 transition-opacity"
+                    style={{ backgroundColor: "#5D1A75" }}
                   >
                     <a
                       href={
