@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { Loader } from "@/components/loader";
 import { AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 const fontBody = Inter({
   subsets: ["latin"],
@@ -27,6 +28,10 @@ export default function RootLayout({
 }>) {
   const [loading, setLoading] = useState(true);
   const [themeLoaded, setThemeLoaded] = useState(false);
+  const pathname = usePathname();
+
+  // Check if we're on an admin page
+  const isAdminPage = pathname?.startsWith("/admin");
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme") || "dark";
@@ -65,9 +70,16 @@ export default function RootLayout({
             loading || !themeLoaded ? "opacity-0" : "opacity-100"
           )}
         >
-          <Header />
-          <main className="flex-1 bg-background">{children}</main>
-          <Footer />
+          {!isAdminPage && <Header />}
+          <main
+            className={cn(
+              "flex-1 bg-background",
+              isAdminPage && "min-h-screen"
+            )}
+          >
+            {children}
+          </main>
+          {!isAdminPage && <Footer />}
           <Toaster />
         </div>
       </body>

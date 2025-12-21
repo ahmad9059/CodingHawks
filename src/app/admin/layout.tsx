@@ -2,7 +2,6 @@
 
 import { usePathname } from "next/navigation";
 import { AdminSidebar } from "@/components/admin/sidebar";
-import { AdminHeader } from "@/components/admin/header";
 import { AuthGuard } from "@/components/admin/auth-guard";
 
 export default function AdminLayout({
@@ -22,8 +21,7 @@ export default function AdminLayout({
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <AdminSidebar />
         <div className="lg:pl-64">
-          <AdminHeader />
-          <main className="p-6">{children}</main>
+          <main className="p-6 min-h-screen">{children}</main>
         </div>
       </div>
     </AuthGuard>

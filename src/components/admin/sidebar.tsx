@@ -20,7 +20,6 @@ const navigation = [
   { name: "Announcements", href: "/admin/announcements", icon: Megaphone },
   { name: "Achievements", href: "/admin/achievements", icon: Trophy },
   { name: "Cabinet", href: "/admin/cabinet", icon: Users },
-  { name: "Fields", href: "/admin/fields", icon: Layers },
   { name: "Settings", href: "/admin/settings", icon: Settings },
 ];
 
@@ -35,10 +34,20 @@ export function AdminSidebar() {
   return (
     <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
       <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white dark:bg-gray-900 px-6 pb-4 border-r border-gray-200 dark:border-gray-700">
-        <div className="flex h-16 shrink-0 items-center">
-          <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-            Admin Dashboard
-          </h1>
+        <div className="flex h-16 shrink-0 items-center border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-sm">CH</span>
+            </div>
+            <div>
+              <h1 className="text-lg font-bold text-gray-900 dark:text-white">
+                Admin Panel
+              </h1>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                Coding Hawks
+              </p>
+            </div>
+          </div>
         </div>
         <nav className="flex flex-1 flex-col">
           <ul role="list" className="flex flex-1 flex-col gap-y-7">
