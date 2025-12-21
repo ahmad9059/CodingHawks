@@ -13,7 +13,6 @@ const navLinks = [
   { href: "/announcements", label: "Announcements" },
   { href: "/achievements", label: "Achievements" },
   { href: "/cabinet", label: "Cabinet" },
-  { href: "/#fields", label: "Fields" },
 ];
 
 function useTheme() {
