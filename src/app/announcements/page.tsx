@@ -1,11 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { format } from "date-fns";
-import { Calendar, ArrowRight, Sparkles, ExternalLink } from "lucide-react";
+import { Calendar, ArrowRight, Sparkles } from "lucide-react";
 import { MotionWrapper } from "@/components/motion-wrapper";
-import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
-import { ensureAbsoluteUrl } from "@/lib/url-utils";
 
 // Force dynamic rendering
 export const dynamic = "force-dynamic";
@@ -40,9 +38,8 @@ export default async function AnnouncementsPage() {
             },
           }}
         >
-          <div className="relative h-full overflow-hidden rounded-2xl border-2 border-border/50 bg-card shadow-lg transition-all duration-500 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 group">
-            {/* Background gradient effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="relative h-full overflow-hidden rounded-2xl border-2 border-border/50 bg-card shadow-lg transition-transform duration-300 hover:scale-105 group">
+            {/* Background gradient effect - removed */}
 
             {/* Clickable area for the main card */}
             <Link
@@ -58,10 +55,8 @@ export default async function AnnouncementsPage() {
                   src={announcement.imageUrl}
                   alt={announcement.title}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover"
                 />
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
             ) : (
               <div className="relative aspect-video w-full overflow-hidden bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center">
@@ -85,18 +80,18 @@ export default async function AnnouncementsPage() {
               </div>
 
               {/* Title */}
-              <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2">
+              <h3 className="text-xl font-bold text-foreground mb-3 line-clamp-2">
                 {announcement.title}
               </h3>
 
               {/* Description */}
-              <p className="text-foreground/70 leading-relaxed mb-6 line-clamp-3 group-hover:text-foreground/90 transition-colors duration-300">
+              <p className="text-foreground/70 leading-relaxed mb-6 line-clamp-3">
                 {announcement.description}
               </p>
 
               {/* Read More indicator */}
               <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2 text-primary group-hover:translate-x-1 transition-transform duration-300">
+                <div className="flex items-center gap-2 text-primary">
                   <span className="text-sm font-medium">Read More</span>
                   <ArrowRight className="h-4 w-4" />
                 </div>
@@ -106,40 +101,10 @@ export default async function AnnouncementsPage() {
                   <span className="text-sm">AI Summary</span>
                 </div>
               </div>
-
-              {/* Custom Button - Above the card link */}
-              {(announcement as any).buttonEnabled &&
-                (announcement as any).buttonText &&
-                (announcement as any).buttonUrl && (
-                  <div className="relative z-20 mt-4 pt-4 border-t border-border/50">
-                    <Button
-                      asChild
-                      size="sm"
-                      className="w-full text-white hover:opacity-90 transition-opacity"
-                      style={{ backgroundColor: "#5D1A75" }}
-                    >
-                      <a
-                        href={
-                          ensureAbsoluteUrl((announcement as any).buttonUrl) ||
-                          "#"
-                        }
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2"
-                      >
-                        {(announcement as any).buttonText}
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                    </Button>
-                  </div>
-                )}
-
-              {/* Bottom accent line */}
-              <div className="h-1 w-0 bg-gradient-to-r from-primary to-primary/50 group-hover:w-full transition-all duration-500 rounded-full mt-4"></div>
             </div>
 
-            {/* Floating decoration */}
-            <div className="absolute top-4 right-4 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
+            {/* Floating decoration - removed animation */}
+            <div className="absolute top-4 right-4 opacity-5">
               <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
                 <Calendar className="h-6 w-6 text-primary" />
               </div>

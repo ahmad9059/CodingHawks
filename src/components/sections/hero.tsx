@@ -119,7 +119,7 @@ export function Hero({ sliderImages }: { sliderImages: SliderImage[] }) {
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="font-headline text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-white mb-6"
         >
-          <span className="bg-gradient-to-r from-white via-purple-200 to-purple-500 bg-clip-text text-transparent drop-shadow-2xl">
+          <span className="bg-gradient-to-r from-purple-200 via-purple-400 to-purple-600 bg-clip-text text-transparent drop-shadow-2xl">
             Coding Hawks
           </span>
           <br />
