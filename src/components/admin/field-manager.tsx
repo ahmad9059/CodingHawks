@@ -9,6 +9,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -69,7 +77,7 @@ const COMMON_ICONS = [
 export function FieldManager({ initialFields }: FieldManagerProps) {
   const [fields, setFields] = useState(initialFields);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [showAddForm, setShowAddForm] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -102,9 +110,9 @@ export function FieldManager({ initialFields }: FieldManagerProps) {
           setEditingId(null);
         } else {
           setFields([...fields, updatedField]);
-          setShowAddForm(false);
         }
 
+        setIsDialogOpen(false);
         setFormData({
           title: "",
           description: "",
@@ -127,7 +135,19 @@ export function FieldManager({ initialFields }: FieldManagerProps) {
       isActive: field.isActive,
     });
     setEditingId(field.id);
-    setShowAddForm(false);
+    setIsDialogOpen(true);
+  };
+
+  const handleAdd = () => {
+    setEditingId(null);
+    setFormData({
+      title: "",
+      description: "",
+      icon: "Code",
+      order: fields.length,
+      isActive: true,
+    });
+    setIsDialogOpen(true);
   };
 
   const handleDelete = async (id: string) => {
@@ -191,7 +211,7 @@ export function FieldManager({ initialFields }: FieldManagerProps) {
 
   const cancelEdit = () => {
     setEditingId(null);
-    setShowAddForm(false);
+    setIsDialogOpen(false);
     setFormData({
       title: "",
       description: "",
@@ -214,118 +234,117 @@ export function FieldManager({ initialFields }: FieldManagerProps) {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-semibold">Fields ({fields.length})</h2>
-        <Button
-          onClick={() => setShowAddForm(true)}
-          disabled={showAddForm || editingId !== null}
-        >
+        <Button onClick={handleAdd}>
           <Plus className="h-4 w-4 mr-2" />
           Add Field
         </Button>
       </div>
 
-      {(showAddForm || editingId) && (
-        <Card>
-          <CardHeader>
-            <CardTitle>{editingId ? "Edit Field" : "Add New Field"}</CardTitle>
-            <CardDescription>
+      {/* Modal Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>
+              {editingId ? "Edit Field" : "Add New Field"}
+            </DialogTitle>
+            <DialogDescription>
               {editingId
                 ? "Update the field details"
                 : "Create a new field of expertise"}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="title">Title</Label>
-                  <Input
-                    id="title"
-                    value={formData.title}
-                    onChange={(e) =>
-                      setFormData({ ...formData, title: e.target.value })
-                    }
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="icon">Icon</Label>
-                  <Select
-                    value={formData.icon}
-                    onValueChange={(value) =>
-                      setFormData({ ...formData, icon: value })
-                    }
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {COMMON_ICONS.map((icon) => (
-                        <SelectItem key={icon} value={icon}>
-                          <div className="flex items-center gap-2">
-                            {renderIcon(icon)}
-                            {icon}
-                          </div>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
+            </DialogDescription>
+          </DialogHeader>
 
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
-                <Textarea
-                  id="description"
-                  value={formData.description}
+                <Label htmlFor="title">Title</Label>
+                <Input
+                  id="title"
+                  value={formData.title}
                   onChange={(e) =>
-                    setFormData({ ...formData, description: e.target.value })
+                    setFormData({ ...formData, title: e.target.value })
                   }
-                  placeholder="Describe this field of expertise"
                   required
                 />
               </div>
-
               <div className="space-y-2">
-                <Label htmlFor="order">Display Order</Label>
-                <Input
-                  id="order"
-                  type="number"
-                  value={formData.order}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      order: parseInt(e.target.value) || 0,
-                    })
+                <Label htmlFor="icon">Icon</Label>
+                <Select
+                  value={formData.icon}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, icon: value })
                   }
-                  min="0"
-                />
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {COMMON_ICONS.map((icon) => (
+                      <SelectItem key={icon} value={icon}>
+                        <div className="flex items-center gap-2">
+                          {renderIcon(icon)}
+                          {icon}
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
+            </div>
 
-              <div className="flex items-center space-x-2">
-                <Switch
-                  id="isActive"
-                  checked={formData.isActive}
-                  onCheckedChange={(checked) =>
-                    setFormData({ ...formData, isActive: checked })
-                  }
-                />
-                <Label htmlFor="isActive">Active</Label>
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="description">Description</Label>
+              <Textarea
+                id="description"
+                value={formData.description}
+                onChange={(e) =>
+                  setFormData({ ...formData, description: e.target.value })
+                }
+                placeholder="Describe this field of expertise"
+                required
+              />
+            </div>
 
-              <div className="flex space-x-2">
-                <Button type="submit">
-                  <Save className="h-4 w-4 mr-2" />
-                  {editingId ? "Update" : "Save"}
-                </Button>
-                <Button type="button" variant="outline" onClick={cancelEdit}>
-                  <X className="h-4 w-4 mr-2" />
-                  Cancel
-                </Button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
-      )}
+            <div className="space-y-2">
+              <Label htmlFor="order">Display Order</Label>
+              <Input
+                id="order"
+                type="number"
+                value={formData.order}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    order: parseInt(e.target.value) || 0,
+                  })
+                }
+                min="0"
+              />
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="isActive"
+                checked={formData.isActive}
+                onCheckedChange={(checked) =>
+                  setFormData({ ...formData, isActive: checked })
+                }
+              />
+              <Label htmlFor="isActive">Active</Label>
+            </div>
+
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={cancelEdit}>
+                <X className="h-4 w-4 mr-2" />
+                Cancel
+              </Button>
+              <Button type="submit">
+                <Save className="h-4 w-4 mr-2" />
+                {editingId ? "Update" : "Save"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {fields.map((field, index) => (
@@ -359,9 +378,7 @@ export function FieldManager({ initialFields }: FieldManagerProps) {
                       size="sm"
                       variant="outline"
                       onClick={() => handleReorder(field.id, "up")}
-                      disabled={
-                        index === 0 || editingId !== null || showAddForm
-                      }
+                      disabled={index === 0}
                     >
                       <ArrowUp className="h-3 w-3" />
                     </Button>
@@ -369,11 +386,7 @@ export function FieldManager({ initialFields }: FieldManagerProps) {
                       size="sm"
                       variant="outline"
                       onClick={() => handleReorder(field.id, "down")}
-                      disabled={
-                        index === fields.length - 1 ||
-                        editingId !== null ||
-                        showAddForm
-                      }
+                      disabled={index === fields.length - 1}
                     >
                       <ArrowDown className="h-3 w-3" />
                     </Button>
@@ -381,7 +394,6 @@ export function FieldManager({ initialFields }: FieldManagerProps) {
                       size="sm"
                       variant="outline"
                       onClick={() => handleEdit(field)}
-                      disabled={editingId === field.id || showAddForm}
                     >
                       <Edit className="h-3 w-3" />
                     </Button>
@@ -389,7 +401,6 @@ export function FieldManager({ initialFields }: FieldManagerProps) {
                       size="sm"
                       variant="outline"
                       onClick={() => handleDelete(field.id)}
-                      disabled={editingId !== null || showAddForm}
                     >
                       <Trash2 className="h-3 w-3" />
                     </Button>

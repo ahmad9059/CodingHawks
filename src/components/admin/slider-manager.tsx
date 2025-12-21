@@ -9,11 +9,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Plus, Edit, Trash2, Save, X } from "lucide-react";
+import { Plus, Edit, Trash2, Save, X, Images } from "lucide-react";
 import Image from "next/image";
 import { ImageUpload } from "./image-upload";
 
@@ -35,7 +43,7 @@ type SliderManagerProps = {
 export function SliderManager({ initialImages }: SliderManagerProps) {
   const [images, setImages] = useState(initialImages);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [showAddForm, setShowAddForm] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -71,9 +79,9 @@ export function SliderManager({ initialImages }: SliderManagerProps) {
           setEditingId(null);
         } else {
           setImages([...images, updatedImage]);
-          setShowAddForm(false);
         }
 
+        setIsDialogOpen(false);
         setFormData({
           title: "",
           description: "",
@@ -96,7 +104,19 @@ export function SliderManager({ initialImages }: SliderManagerProps) {
       isActive: image.isActive,
     });
     setEditingId(image.id);
-    setShowAddForm(false);
+    setIsDialogOpen(true);
+  };
+
+  const handleAdd = () => {
+    setEditingId(null);
+    setFormData({
+      title: "",
+      description: "",
+      imageUrl: "",
+      order: images.length + 1,
+      isActive: true,
+    });
+    setIsDialogOpen(true);
   };
 
   const handleDelete = async (id: string) => {
@@ -117,7 +137,7 @@ export function SliderManager({ initialImages }: SliderManagerProps) {
 
   const cancelEdit = () => {
     setEditingId(null);
-    setShowAddForm(false);
+    setIsDialogOpen(false);
     setFormData({
       title: "",
       description: "",
@@ -133,99 +153,98 @@ export function SliderManager({ initialImages }: SliderManagerProps) {
         <h2 className="text-xl font-semibold">
           Slider Images ({images.length})
         </h2>
-        <Button
-          onClick={() => setShowAddForm(true)}
-          disabled={showAddForm || editingId}
-        >
+        <Button onClick={handleAdd}>
           <Plus className="h-4 w-4 mr-2" />
           Add Image
         </Button>
       </div>
 
-      {(showAddForm || editingId) && (
-        <Card>
-          <CardHeader>
-            <CardTitle>{editingId ? "Edit Image" : "Add New Image"}</CardTitle>
-            <CardDescription>
+      {/* Modal Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>
+              {editingId ? "Edit Slider Image" : "Add New Slider Image"}
+            </DialogTitle>
+            <DialogDescription>
               {editingId
                 ? "Update the slider image details"
                 : "Add a new image to the hero slider"}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <ImageUpload
-                value={formData.imageUrl}
-                onChange={(url) => setFormData({ ...formData, imageUrl: url })}
-                onRemove={() => setFormData({ ...formData, imageUrl: "" })}
-              />
+            </DialogDescription>
+          </DialogHeader>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="title">Title</Label>
-                  <Input
-                    id="title"
-                    value={formData.title}
-                    onChange={(e) =>
-                      setFormData({ ...formData, title: e.target.value })
-                    }
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="order">Order</Label>
-                  <Input
-                    id="order"
-                    type="number"
-                    value={formData.order}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        order: parseInt(e.target.value),
-                      })
-                    }
-                    required
-                  />
-                </div>
-              </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <ImageUpload
+              value={formData.imageUrl}
+              onChange={(url) => setFormData({ ...formData, imageUrl: url })}
+              onRemove={() => setFormData({ ...formData, imageUrl: "" })}
+            />
 
+            <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
-                <Textarea
-                  id="description"
-                  value={formData.description}
+                <Label htmlFor="title">Title</Label>
+                <Input
+                  id="title"
+                  value={formData.title}
                   onChange={(e) =>
-                    setFormData({ ...formData, description: e.target.value })
+                    setFormData({ ...formData, title: e.target.value })
                   }
-                  placeholder="Optional description"
+                  required
                 />
               </div>
-
-              <div className="flex items-center space-x-2">
-                <Switch
-                  id="isActive"
-                  checked={formData.isActive}
-                  onCheckedChange={(checked) =>
-                    setFormData({ ...formData, isActive: checked })
+              <div className="space-y-2">
+                <Label htmlFor="order">Order</Label>
+                <Input
+                  id="order"
+                  type="number"
+                  value={formData.order}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      order: parseInt(e.target.value),
+                    })
                   }
+                  required
                 />
-                <Label htmlFor="isActive">Active</Label>
               </div>
+            </div>
 
-              <div className="flex space-x-2">
-                <Button type="submit">
-                  <Save className="h-4 w-4 mr-2" />
-                  {editingId ? "Update" : "Save"}
-                </Button>
-                <Button type="button" variant="outline" onClick={cancelEdit}>
-                  <X className="h-4 w-4 mr-2" />
-                  Cancel
-                </Button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
-      )}
+            <div className="space-y-2">
+              <Label htmlFor="description">Description</Label>
+              <Textarea
+                id="description"
+                value={formData.description}
+                onChange={(e) =>
+                  setFormData({ ...formData, description: e.target.value })
+                }
+                placeholder="Optional description"
+              />
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="isActive"
+                checked={formData.isActive}
+                onCheckedChange={(checked) =>
+                  setFormData({ ...formData, isActive: checked })
+                }
+              />
+              <Label htmlFor="isActive">Active</Label>
+            </div>
+
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={cancelEdit}>
+                <X className="h-4 w-4 mr-2" />
+                Cancel
+              </Button>
+              <Button type="submit">
+                <Save className="h-4 w-4 mr-2" />
+                {editingId ? "Update" : "Save"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {images.map((image) => (
@@ -272,7 +291,6 @@ export function SliderManager({ initialImages }: SliderManagerProps) {
                       size="sm"
                       variant="outline"
                       onClick={() => handleEdit(image)}
-                      disabled={editingId === image.id || showAddForm}
                     >
                       <Edit className="h-3 w-3" />
                     </Button>
@@ -280,7 +298,6 @@ export function SliderManager({ initialImages }: SliderManagerProps) {
                       size="sm"
                       variant="outline"
                       onClick={() => handleDelete(image.id)}
-                      disabled={editingId || showAddForm}
                     >
                       <Trash2 className="h-3 w-3" />
                     </Button>

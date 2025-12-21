@@ -9,6 +9,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -65,7 +73,7 @@ const PREDEFINED_SETTINGS = [
 export function SettingsManager({ initialSettings }: SettingsManagerProps) {
   const [settings, setSettings] = useState(initialSettings);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [showAddForm, setShowAddForm] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
     key: "",
     value: "",
@@ -96,9 +104,9 @@ export function SettingsManager({ initialSettings }: SettingsManagerProps) {
           setEditingId(null);
         } else {
           setSettings([...settings, updatedSetting]);
-          setShowAddForm(false);
         }
 
+        setIsDialogOpen(false);
         setFormData({
           key: "",
           value: "",
@@ -117,7 +125,17 @@ export function SettingsManager({ initialSettings }: SettingsManagerProps) {
       type: setting.type,
     });
     setEditingId(setting.id);
-    setShowAddForm(false);
+    setIsDialogOpen(true);
+  };
+
+  const handleAdd = () => {
+    setEditingId(null);
+    setFormData({
+      key: "",
+      value: "",
+      type: "text",
+    });
+    setIsDialogOpen(true);
   };
 
   const handleDelete = async (id: string) => {
@@ -152,12 +170,13 @@ export function SettingsManager({ initialSettings }: SettingsManagerProps) {
       value: "",
       type: predefinedSetting.type,
     });
-    setShowAddForm(true);
+    setEditingId(null);
+    setIsDialogOpen(true);
   };
 
   const cancelEdit = () => {
     setEditingId(null);
-    setShowAddForm(false);
+    setIsDialogOpen(false);
     setFormData({
       key: "",
       value: "",
@@ -220,10 +239,7 @@ export function SettingsManager({ initialSettings }: SettingsManagerProps) {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-semibold">Settings ({settings.length})</h2>
-        <Button
-          onClick={() => setShowAddForm(true)}
-          disabled={showAddForm || editingId !== null}
-        >
+        <Button onClick={handleAdd}>
           <Plus className="h-4 w-4 mr-2" />
           Add Setting
         </Button>
@@ -247,7 +263,6 @@ export function SettingsManager({ initialSettings }: SettingsManagerProps) {
                   variant={exists ? "secondary" : "outline"}
                   size="sm"
                   onClick={() => handleQuickAdd(predefined)}
-                  disabled={editingId !== null || showAddForm}
                 >
                   {exists ? "Edit" : "Add"} {predefined.label}
                 </Button>
@@ -257,75 +272,75 @@ export function SettingsManager({ initialSettings }: SettingsManagerProps) {
         </CardContent>
       </Card>
 
-      {(showAddForm || editingId) && (
-        <Card>
-          <CardHeader>
-            <CardTitle>
+      {/* Modal Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>
               {editingId ? "Edit Setting" : "Add New Setting"}
-            </CardTitle>
-            <CardDescription>
+            </DialogTitle>
+            <DialogDescription>
               {editingId
                 ? "Update the setting details"
                 : "Create a new site setting"}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="key">Key</Label>
-                  <Input
-                    id="key"
-                    value={formData.key}
-                    onChange={(e) =>
-                      setFormData({ ...formData, key: e.target.value })
-                    }
-                    placeholder="setting_key"
-                    disabled={!!editingId}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="type">Type</Label>
-                  <Select
-                    value={formData.type}
-                    onValueChange={(value) =>
-                      setFormData({ ...formData, type: value })
-                    }
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {SETTING_TYPES.map((type) => (
-                        <SelectItem key={type.value} value={type.value}>
-                          {type.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
+            </DialogDescription>
+          </DialogHeader>
 
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="value">Value</Label>
-                {renderValueInput()}
+                <Label htmlFor="key">Key</Label>
+                <Input
+                  id="key"
+                  value={formData.key}
+                  onChange={(e) =>
+                    setFormData({ ...formData, key: e.target.value })
+                  }
+                  placeholder="setting_key"
+                  disabled={!!editingId}
+                  required
+                />
               </div>
+              <div className="space-y-2">
+                <Label htmlFor="type">Type</Label>
+                <Select
+                  value={formData.type}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, type: value })
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {SETTING_TYPES.map((type) => (
+                      <SelectItem key={type.value} value={type.value}>
+                        {type.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
 
-              <div className="flex space-x-2">
-                <Button type="submit">
-                  <Save className="h-4 w-4 mr-2" />
-                  {editingId ? "Update" : "Save"}
-                </Button>
-                <Button type="button" variant="outline" onClick={cancelEdit}>
-                  <X className="h-4 w-4 mr-2" />
-                  Cancel
-                </Button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
-      )}
+            <div className="space-y-2">
+              <Label htmlFor="value">Value</Label>
+              {renderValueInput()}
+            </div>
+
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={cancelEdit}>
+                <X className="h-4 w-4 mr-2" />
+                Cancel
+              </Button>
+              <Button type="submit">
+                <Save className="h-4 w-4 mr-2" />
+                {editingId ? "Update" : "Save"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       <div className="grid gap-4">
         {settings.map((setting) => (
@@ -354,7 +369,6 @@ export function SettingsManager({ initialSettings }: SettingsManagerProps) {
                     size="sm"
                     variant="outline"
                     onClick={() => handleEdit(setting)}
-                    disabled={editingId === setting.id || showAddForm}
                   >
                     <Edit className="h-3 w-3" />
                   </Button>
@@ -362,7 +376,6 @@ export function SettingsManager({ initialSettings }: SettingsManagerProps) {
                     size="sm"
                     variant="outline"
                     onClick={() => handleDelete(setting.id)}
-                    disabled={editingId !== null || showAddForm}
                   >
                     <Trash2 className="h-3 w-3" />
                   </Button>

@@ -9,6 +9,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -19,7 +27,6 @@ import {
   Trash2,
   Save,
   X,
-  Trophy,
   ArrowUp,
   ArrowDown,
   ExternalLink,
@@ -51,7 +58,7 @@ export function AchievementManager({
 }: AchievementManagerProps) {
   const [achievements, setAchievements] = useState(initialAchievements);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [showAddForm, setShowAddForm] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -88,9 +95,9 @@ export function AchievementManager({
           setEditingId(null);
         } else {
           setAchievements([...achievements, updatedAchievement]);
-          setShowAddForm(false);
         }
 
+        setIsDialogOpen(false);
         setFormData({
           title: "",
           description: "",
@@ -121,7 +128,23 @@ export function AchievementManager({
       isActive: achievement.isActive,
     });
     setEditingId(achievement.id);
-    setShowAddForm(false);
+    setIsDialogOpen(true);
+  };
+
+  const handleAdd = () => {
+    setEditingId(null);
+    setFormData({
+      title: "",
+      description: "",
+      year: new Date().getFullYear().toString(),
+      imageUrl: "",
+      buttonText: "",
+      buttonUrl: "",
+      buttonEnabled: false,
+      order: achievements.length,
+      isActive: true,
+    });
+    setIsDialogOpen(true);
   };
 
   const handleDelete = async (id: string) => {
@@ -189,7 +212,7 @@ export function AchievementManager({
 
   const cancelEdit = () => {
     setEditingId(null);
-    setShowAddForm(false);
+    setIsDialogOpen(false);
     setFormData({
       title: "",
       description: "",
@@ -209,167 +232,164 @@ export function AchievementManager({
         <h2 className="text-xl font-semibold">
           Achievements ({achievements.length})
         </h2>
-        <Button
-          onClick={() => setShowAddForm(true)}
-          disabled={showAddForm || editingId !== null}
-        >
+        <Button onClick={handleAdd}>
           <Plus className="h-4 w-4 mr-2" />
           Add Achievement
         </Button>
       </div>
 
-      {(showAddForm || editingId) && (
-        <Card>
-          <CardHeader>
-            <CardTitle>
+      {/* Modal Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>
               {editingId ? "Edit Achievement" : "Add New Achievement"}
-            </CardTitle>
-            <CardDescription>
+            </DialogTitle>
+            <DialogDescription>
               {editingId
                 ? "Update the achievement details"
                 : "Create a new achievement"}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="title">Title</Label>
-                  <Input
-                    id="title"
-                    value={formData.title}
-                    onChange={(e) =>
-                      setFormData({ ...formData, title: e.target.value })
-                    }
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="year">Year</Label>
-                  <Input
-                    id="year"
-                    value={formData.year}
-                    onChange={(e) =>
-                      setFormData({ ...formData, year: e.target.value })
-                    }
-                    placeholder="e.g., 2024"
-                    required
-                  />
-                </div>
-              </div>
+            </DialogDescription>
+          </DialogHeader>
 
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
-                <Textarea
-                  id="description"
-                  value={formData.description}
+                <Label htmlFor="title">Title</Label>
+                <Input
+                  id="title"
+                  value={formData.title}
                   onChange={(e) =>
-                    setFormData({ ...formData, description: e.target.value })
+                    setFormData({ ...formData, title: e.target.value })
                   }
-                  placeholder="Description of the achievement"
-                  rows={3}
                   required
                 />
               </div>
-
               <div className="space-y-2">
-                <Label htmlFor="order">Display Order</Label>
+                <Label htmlFor="year">Year</Label>
                 <Input
-                  id="order"
-                  type="number"
-                  value={formData.order}
+                  id="year"
+                  value={formData.year}
                   onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      order: parseInt(e.target.value) || 0,
-                    })
+                    setFormData({ ...formData, year: e.target.value })
                   }
-                  min="0"
+                  placeholder="e.g., 2024"
+                  required
                 />
               </div>
+            </div>
 
-              <ImageUpload
-                value={formData.imageUrl}
-                onChange={(url) => setFormData({ ...formData, imageUrl: url })}
-                onRemove={() => setFormData({ ...formData, imageUrl: "" })}
+            <div className="space-y-2">
+              <Label htmlFor="description">Description</Label>
+              <Textarea
+                id="description"
+                value={formData.description}
+                onChange={(e) =>
+                  setFormData({ ...formData, description: e.target.value })
+                }
+                placeholder="Description of the achievement"
+                rows={3}
+                required
               />
+            </div>
 
-              <div className="space-y-4 border-t pt-4">
-                <Label className="text-base font-semibold flex items-center gap-2">
-                  <ExternalLink className="h-4 w-4" />
-                  Custom Button (Optional)
-                </Label>
+            <div className="space-y-2">
+              <Label htmlFor="order">Display Order</Label>
+              <Input
+                id="order"
+                type="number"
+                value={formData.order}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    order: parseInt(e.target.value) || 0,
+                  })
+                }
+                min="0"
+              />
+            </div>
 
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    id="buttonEnabled"
-                    checked={formData.buttonEnabled}
-                    onCheckedChange={(checked) =>
-                      setFormData({ ...formData, buttonEnabled: checked })
-                    }
-                  />
-                  <Label htmlFor="buttonEnabled">Enable Custom Button</Label>
-                </div>
+            <ImageUpload
+              value={formData.imageUrl}
+              onChange={(url) => setFormData({ ...formData, imageUrl: url })}
+              onRemove={() => setFormData({ ...formData, imageUrl: "" })}
+            />
 
-                {formData.buttonEnabled && (
-                  <div className="grid grid-cols-2 gap-4 pl-6 border-l-2 border-primary/20">
-                    <div className="space-y-2">
-                      <Label htmlFor="buttonText">Button Text</Label>
-                      <Input
-                        id="buttonText"
-                        value={formData.buttonText}
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            buttonText: e.target.value,
-                          })
-                        }
-                        placeholder="e.g., View Certificate, Learn More"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="buttonUrl">Button URL</Label>
-                      <Input
-                        id="buttonUrl"
-                        value={formData.buttonUrl}
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            buttonUrl: e.target.value,
-                          })
-                        }
-                        placeholder="https://example.com or www.example.com"
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
+            <div className="space-y-4 border-t pt-4">
+              <Label className="text-base font-semibold flex items-center gap-2">
+                <ExternalLink className="h-4 w-4" />
+                Custom Button (Optional)
+              </Label>
 
               <div className="flex items-center space-x-2">
                 <Switch
-                  id="isActive"
-                  checked={formData.isActive}
+                  id="buttonEnabled"
+                  checked={formData.buttonEnabled}
                   onCheckedChange={(checked) =>
-                    setFormData({ ...formData, isActive: checked })
+                    setFormData({ ...formData, buttonEnabled: checked })
                   }
                 />
-                <Label htmlFor="isActive">Active</Label>
+                <Label htmlFor="buttonEnabled">Enable Custom Button</Label>
               </div>
 
-              <div className="flex space-x-2">
-                <Button type="submit">
-                  <Save className="h-4 w-4 mr-2" />
-                  {editingId ? "Update" : "Save"}
-                </Button>
-                <Button type="button" variant="outline" onClick={cancelEdit}>
-                  <X className="h-4 w-4 mr-2" />
-                  Cancel
-                </Button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
-      )}
+              {formData.buttonEnabled && (
+                <div className="grid grid-cols-2 gap-4 pl-6 border-l-2 border-primary/20">
+                  <div className="space-y-2">
+                    <Label htmlFor="buttonText">Button Text</Label>
+                    <Input
+                      id="buttonText"
+                      value={formData.buttonText}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          buttonText: e.target.value,
+                        })
+                      }
+                      placeholder="e.g., View Certificate, Learn More"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="buttonUrl">Button URL</Label>
+                    <Input
+                      id="buttonUrl"
+                      value={formData.buttonUrl}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          buttonUrl: e.target.value,
+                        })
+                      }
+                      placeholder="https://example.com or www.example.com"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="isActive"
+                checked={formData.isActive}
+                onCheckedChange={(checked) =>
+                  setFormData({ ...formData, isActive: checked })
+                }
+              />
+              <Label htmlFor="isActive">Active</Label>
+            </div>
+
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={cancelEdit}>
+                <X className="h-4 w-4 mr-2" />
+                Cancel
+              </Button>
+              <Button type="submit">
+                <Save className="h-4 w-4 mr-2" />
+                {editingId ? "Update" : "Save"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {achievements.map((achievement, index) => (
@@ -431,9 +451,7 @@ export function AchievementManager({
                       size="sm"
                       variant="outline"
                       onClick={() => handleReorder(achievement.id, "up")}
-                      disabled={
-                        index === 0 || editingId !== null || showAddForm
-                      }
+                      disabled={index === 0}
                     >
                       <ArrowUp className="h-3 w-3" />
                     </Button>
@@ -441,11 +459,7 @@ export function AchievementManager({
                       size="sm"
                       variant="outline"
                       onClick={() => handleReorder(achievement.id, "down")}
-                      disabled={
-                        index === achievements.length - 1 ||
-                        editingId !== null ||
-                        showAddForm
-                      }
+                      disabled={index === achievements.length - 1}
                     >
                       <ArrowDown className="h-3 w-3" />
                     </Button>
@@ -453,7 +467,6 @@ export function AchievementManager({
                       size="sm"
                       variant="outline"
                       onClick={() => handleEdit(achievement)}
-                      disabled={editingId === achievement.id || showAddForm}
                     >
                       <Edit className="h-3 w-3" />
                     </Button>
@@ -461,7 +474,6 @@ export function AchievementManager({
                       size="sm"
                       variant="outline"
                       onClick={() => handleDelete(achievement.id)}
-                      disabled={editingId !== null || showAddForm}
                     >
                       <Trash2 className="h-3 w-3" />
                     </Button>

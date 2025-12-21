@@ -9,6 +9,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -51,7 +59,7 @@ export function AnnouncementManager({
 }: AnnouncementManagerProps) {
   const [announcements, setAnnouncements] = useState(initialAnnouncements);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [showAddForm, setShowAddForm] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -88,9 +96,9 @@ export function AnnouncementManager({
           setEditingId(null);
         } else {
           setAnnouncements([updatedAnnouncement, ...announcements]);
-          setShowAddForm(false);
         }
 
+        setIsDialogOpen(false);
         setFormData({
           title: "",
           description: "",
@@ -121,7 +129,23 @@ export function AnnouncementManager({
       isActive: announcement.isActive,
     });
     setEditingId(announcement.id);
-    setShowAddForm(false);
+    setIsDialogOpen(true);
+  };
+
+  const handleAdd = () => {
+    setEditingId(null);
+    setFormData({
+      title: "",
+      description: "",
+      content: "",
+      imageUrl: "",
+      date: new Date().toISOString().split("T")[0],
+      buttonText: "",
+      buttonUrl: "",
+      buttonEnabled: false,
+      isActive: true,
+    });
+    setIsDialogOpen(true);
   };
 
   const handleDelete = async (id: string) => {
@@ -144,7 +168,7 @@ export function AnnouncementManager({
 
   const cancelEdit = () => {
     setEditingId(null);
-    setShowAddForm(false);
+    setIsDialogOpen(false);
     setFormData({
       title: "",
       description: "",
@@ -164,164 +188,161 @@ export function AnnouncementManager({
         <h2 className="text-xl font-semibold">
           Announcements ({announcements.length})
         </h2>
-        <Button
-          onClick={() => setShowAddForm(true)}
-          disabled={showAddForm || editingId !== null}
-        >
+        <Button onClick={handleAdd}>
           <Plus className="h-4 w-4 mr-2" />
           Add Announcement
         </Button>
       </div>
 
-      {(showAddForm || editingId) && (
-        <Card>
-          <CardHeader>
-            <CardTitle>
+      {/* Modal Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>
               {editingId ? "Edit Announcement" : "Add New Announcement"}
-            </CardTitle>
-            <CardDescription>
+            </DialogTitle>
+            <DialogDescription>
               {editingId
                 ? "Update the announcement details"
                 : "Create a new announcement"}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="title">Title</Label>
-                  <Input
-                    id="title"
-                    value={formData.title}
-                    onChange={(e) =>
-                      setFormData({ ...formData, title: e.target.value })
-                    }
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="date">Date</Label>
-                  <Input
-                    id="date"
-                    type="date"
-                    value={formData.date}
-                    onChange={(e) =>
-                      setFormData({ ...formData, date: e.target.value })
-                    }
-                    required
-                  />
-                </div>
-              </div>
+            </DialogDescription>
+          </DialogHeader>
 
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
-                <Textarea
-                  id="description"
-                  value={formData.description}
+                <Label htmlFor="title">Title</Label>
+                <Input
+                  id="title"
+                  value={formData.title}
                   onChange={(e) =>
-                    setFormData({ ...formData, description: e.target.value })
+                    setFormData({ ...formData, title: e.target.value })
                   }
-                  placeholder="Brief description for the card"
-                  rows={3}
                   required
                 />
               </div>
-
               <div className="space-y-2">
-                <Label htmlFor="content">Content (Optional)</Label>
-                <Textarea
-                  id="content"
-                  value={formData.content}
+                <Label htmlFor="date">Date</Label>
+                <Input
+                  id="date"
+                  type="date"
+                  value={formData.date}
                   onChange={(e) =>
-                    setFormData({ ...formData, content: e.target.value })
+                    setFormData({ ...formData, date: e.target.value })
                   }
-                  placeholder="Full content for the detail page"
-                  rows={5}
+                  required
                 />
               </div>
+            </div>
 
-              <ImageUpload
-                value={formData.imageUrl}
-                onChange={(url) => setFormData({ ...formData, imageUrl: url })}
-                onRemove={() => setFormData({ ...formData, imageUrl: "" })}
+            <div className="space-y-2">
+              <Label htmlFor="description">Description</Label>
+              <Textarea
+                id="description"
+                value={formData.description}
+                onChange={(e) =>
+                  setFormData({ ...formData, description: e.target.value })
+                }
+                placeholder="Brief description for the card"
+                rows={3}
+                required
               />
+            </div>
 
-              <div className="space-y-4 border-t pt-4">
-                <Label className="text-base font-semibold flex items-center gap-2">
-                  <ExternalLink className="h-4 w-4" />
-                  Custom Button (Optional)
-                </Label>
+            <div className="space-y-2">
+              <Label htmlFor="content">Content (Optional)</Label>
+              <Textarea
+                id="content"
+                value={formData.content}
+                onChange={(e) =>
+                  setFormData({ ...formData, content: e.target.value })
+                }
+                placeholder="Full content for the detail page"
+                rows={5}
+              />
+            </div>
 
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    id="buttonEnabled"
-                    checked={formData.buttonEnabled}
-                    onCheckedChange={(checked) =>
-                      setFormData({ ...formData, buttonEnabled: checked })
-                    }
-                  />
-                  <Label htmlFor="buttonEnabled">Enable Custom Button</Label>
-                </div>
+            <ImageUpload
+              value={formData.imageUrl}
+              onChange={(url) => setFormData({ ...formData, imageUrl: url })}
+              onRemove={() => setFormData({ ...formData, imageUrl: "" })}
+            />
 
-                {formData.buttonEnabled && (
-                  <div className="grid grid-cols-2 gap-4 pl-6 border-l-2 border-primary/20">
-                    <div className="space-y-2">
-                      <Label htmlFor="buttonText">Button Text</Label>
-                      <Input
-                        id="buttonText"
-                        value={formData.buttonText}
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            buttonText: e.target.value,
-                          })
-                        }
-                        placeholder="e.g., Learn More, Register Now"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="buttonUrl">Button URL</Label>
-                      <Input
-                        id="buttonUrl"
-                        value={formData.buttonUrl}
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            buttonUrl: e.target.value,
-                          })
-                        }
-                        placeholder="https://example.com or www.example.com"
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
+            <div className="space-y-4 border-t pt-4">
+              <Label className="text-base font-semibold flex items-center gap-2">
+                <ExternalLink className="h-4 w-4" />
+                Custom Button (Optional)
+              </Label>
 
               <div className="flex items-center space-x-2">
                 <Switch
-                  id="isActive"
-                  checked={formData.isActive}
+                  id="buttonEnabled"
+                  checked={formData.buttonEnabled}
                   onCheckedChange={(checked) =>
-                    setFormData({ ...formData, isActive: checked })
+                    setFormData({ ...formData, buttonEnabled: checked })
                   }
                 />
-                <Label htmlFor="isActive">Active</Label>
+                <Label htmlFor="buttonEnabled">Enable Custom Button</Label>
               </div>
 
-              <div className="flex space-x-2">
-                <Button type="submit">
-                  <Save className="h-4 w-4 mr-2" />
-                  {editingId ? "Update" : "Save"}
-                </Button>
-                <Button type="button" variant="outline" onClick={cancelEdit}>
-                  <X className="h-4 w-4 mr-2" />
-                  Cancel
-                </Button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
-      )}
+              {formData.buttonEnabled && (
+                <div className="grid grid-cols-2 gap-4 pl-6 border-l-2 border-primary/20">
+                  <div className="space-y-2">
+                    <Label htmlFor="buttonText">Button Text</Label>
+                    <Input
+                      id="buttonText"
+                      value={formData.buttonText}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          buttonText: e.target.value,
+                        })
+                      }
+                      placeholder="e.g., Learn More, Register Now"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="buttonUrl">Button URL</Label>
+                    <Input
+                      id="buttonUrl"
+                      value={formData.buttonUrl}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          buttonUrl: e.target.value,
+                        })
+                      }
+                      placeholder="https://example.com or www.example.com"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="isActive"
+                checked={formData.isActive}
+                onCheckedChange={(checked) =>
+                  setFormData({ ...formData, isActive: checked })
+                }
+              />
+              <Label htmlFor="isActive">Active</Label>
+            </div>
+
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={cancelEdit}>
+                <X className="h-4 w-4 mr-2" />
+                Cancel
+              </Button>
+              <Button type="submit">
+                <Save className="h-4 w-4 mr-2" />
+                {editingId ? "Update" : "Save"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {announcements.map((announcement) => (
@@ -384,7 +405,6 @@ export function AnnouncementManager({
                       size="sm"
                       variant="outline"
                       onClick={() => handleEdit(announcement)}
-                      disabled={editingId === announcement.id || showAddForm}
                     >
                       <Edit className="h-3 w-3" />
                     </Button>
@@ -392,7 +412,6 @@ export function AnnouncementManager({
                       size="sm"
                       variant="outline"
                       onClick={() => handleDelete(announcement.id)}
-                      disabled={editingId !== null || showAddForm}
                     >
                       <Trash2 className="h-3 w-3" />
                     </Button>

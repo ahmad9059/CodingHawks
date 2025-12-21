@@ -9,6 +9,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -28,7 +36,6 @@ import {
   Globe,
 } from "lucide-react";
 import Image from "next/image";
-import { ImageUpload } from "./image-upload";
 import { CabinetImageUpload } from "./cabinet-image-upload";
 
 type TeamMember = {
@@ -56,7 +63,7 @@ export function TeamMemberManager({
 }: TeamMemberManagerProps) {
   const [teamMembers, setTeamMembers] = useState(initialTeamMembers);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [showAddForm, setShowAddForm] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     position: "",
@@ -94,9 +101,9 @@ export function TeamMemberManager({
           setEditingId(null);
         } else {
           setTeamMembers([...teamMembers, updatedMember]);
-          setShowAddForm(false);
         }
 
+        setIsDialogOpen(false);
         setFormData({
           name: "",
           position: "",
@@ -129,7 +136,24 @@ export function TeamMemberManager({
       isActive: member.isActive,
     });
     setEditingId(member.id);
-    setShowAddForm(false);
+    setIsDialogOpen(true);
+  };
+
+  const handleAdd = () => {
+    setEditingId(null);
+    setFormData({
+      name: "",
+      position: "",
+      imageUrl: "",
+      bio: "",
+      linkedin: "",
+      instagram: "",
+      github: "",
+      website: "",
+      order: teamMembers.length,
+      isActive: true,
+    });
+    setIsDialogOpen(true);
   };
 
   const handleDelete = async (id: string) => {
@@ -193,7 +217,7 @@ export function TeamMemberManager({
 
   const cancelEdit = () => {
     setEditingId(null);
-    setShowAddForm(false);
+    setIsDialogOpen(false);
     setFormData({
       name: "",
       position: "",
@@ -214,192 +238,183 @@ export function TeamMemberManager({
         <h2 className="text-xl font-semibold">
           Team Members ({teamMembers.length})
         </h2>
-        <Button
-          onClick={() => setShowAddForm(true)}
-          disabled={showAddForm || editingId !== null}
-        >
+        <Button onClick={handleAdd}>
           <Plus className="h-4 w-4 mr-2" />
           Add Team Member
         </Button>
       </div>
 
-      {(showAddForm || editingId) && (
-        <Card>
-          <CardHeader>
-            <CardTitle>
+      {/* Modal Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>
               {editingId ? "Edit Team Member" : "Add New Team Member"}
-            </CardTitle>
-            <CardDescription>
+            </DialogTitle>
+            <DialogDescription>
               {editingId
                 ? "Update the team member details"
                 : "Add a new member to the cabinet"}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            </DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  id="name"
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="position">Position</Label>
+                <Input
+                  id="position"
+                  value={formData.position}
+                  onChange={(e) =>
+                    setFormData({ ...formData, position: e.target.value })
+                  }
+                  placeholder="e.g., President, Vice President"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="bio">Bio (Optional)</Label>
+              <Textarea
+                id="bio"
+                value={formData.bio}
+                onChange={(e) =>
+                  setFormData({ ...formData, bio: e.target.value })
+                }
+                placeholder="Brief description about the team member"
+                rows={3}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="order">Display Order</Label>
+              <Input
+                id="order"
+                type="number"
+                value={formData.order}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    order: parseInt(e.target.value) || 0,
+                  })
+                }
+                min="0"
+              />
+            </div>
+
+            <CabinetImageUpload
+              value={formData.imageUrl}
+              onChange={(url) => setFormData({ ...formData, imageUrl: url })}
+              onRemove={() => setFormData({ ...formData, imageUrl: "" })}
+            />
+
+            <div className="space-y-4">
+              <Label className="text-base font-semibold">
+                Social Links (Optional)
+              </Label>
+
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Name</Label>
+                  <Label htmlFor="linkedin" className="flex items-center gap-2">
+                    <Linkedin className="h-4 w-4 text-blue-600" />
+                    LinkedIn
+                  </Label>
                   <Input
-                    id="name"
-                    value={formData.name}
+                    id="linkedin"
+                    value={formData.linkedin}
                     onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
+                      setFormData({ ...formData, linkedin: e.target.value })
                     }
-                    required
+                    placeholder="https://linkedin.com/in/username or www.linkedin.com/in/username"
                   />
                 </div>
+
                 <div className="space-y-2">
-                  <Label htmlFor="position">Position</Label>
+                  <Label
+                    htmlFor="instagram"
+                    className="flex items-center gap-2"
+                  >
+                    <Instagram className="h-4 w-4 text-pink-600" />
+                    Instagram
+                  </Label>
                   <Input
-                    id="position"
-                    value={formData.position}
+                    id="instagram"
+                    value={formData.instagram}
                     onChange={(e) =>
-                      setFormData({ ...formData, position: e.target.value })
+                      setFormData({ ...formData, instagram: e.target.value })
                     }
-                    placeholder="e.g., President, Vice President"
-                    required
+                    placeholder="https://instagram.com/username or www.instagram.com/username"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="github" className="flex items-center gap-2">
+                    <Github className="h-4 w-4 text-gray-600" />
+                    GitHub
+                  </Label>
+                  <Input
+                    id="github"
+                    value={formData.github}
+                    onChange={(e) =>
+                      setFormData({ ...formData, github: e.target.value })
+                    }
+                    placeholder="https://github.com/username or github.com/username"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="website" className="flex items-center gap-2">
+                    <Globe className="h-4 w-4 text-green-600" />
+                    Website/Portfolio
+                  </Label>
+                  <Input
+                    id="website"
+                    value={formData.website}
+                    onChange={(e) =>
+                      setFormData({ ...formData, website: e.target.value })
+                    }
+                    placeholder="https://yourwebsite.com or www.yourwebsite.com"
                   />
                 </div>
               </div>
+            </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="bio">Bio (Optional)</Label>
-                <Textarea
-                  id="bio"
-                  value={formData.bio}
-                  onChange={(e) =>
-                    setFormData({ ...formData, bio: e.target.value })
-                  }
-                  placeholder="Brief description about the team member"
-                  rows={3}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="order">Display Order</Label>
-                <Input
-                  id="order"
-                  type="number"
-                  value={formData.order}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      order: parseInt(e.target.value) || 0,
-                    })
-                  }
-                  min="0"
-                />
-              </div>
-
-              <CabinetImageUpload
-                value={formData.imageUrl}
-                onChange={(url) => setFormData({ ...formData, imageUrl: url })}
-                onRemove={() => setFormData({ ...formData, imageUrl: "" })}
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="isActive"
+                checked={formData.isActive}
+                onCheckedChange={(checked) =>
+                  setFormData({ ...formData, isActive: checked })
+                }
               />
+              <Label htmlFor="isActive">Active</Label>
+            </div>
 
-              <div className="space-y-4">
-                <Label className="text-base font-semibold">
-                  Social Links (Optional)
-                </Label>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="linkedin"
-                      className="flex items-center gap-2"
-                    >
-                      <Linkedin className="h-4 w-4 text-blue-600" />
-                      LinkedIn
-                    </Label>
-                    <Input
-                      id="linkedin"
-                      value={formData.linkedin}
-                      onChange={(e) =>
-                        setFormData({ ...formData, linkedin: e.target.value })
-                      }
-                      placeholder="https://linkedin.com/in/username or www.linkedin.com/in/username"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="instagram"
-                      className="flex items-center gap-2"
-                    >
-                      <Instagram className="h-4 w-4 text-pink-600" />
-                      Instagram
-                    </Label>
-                    <Input
-                      id="instagram"
-                      value={formData.instagram}
-                      onChange={(e) =>
-                        setFormData({ ...formData, instagram: e.target.value })
-                      }
-                      placeholder="https://instagram.com/username or www.instagram.com/username"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="github" className="flex items-center gap-2">
-                      <Github className="h-4 w-4 text-gray-600" />
-                      GitHub
-                    </Label>
-                    <Input
-                      id="github"
-                      value={formData.github}
-                      onChange={(e) =>
-                        setFormData({ ...formData, github: e.target.value })
-                      }
-                      placeholder="https://github.com/username or github.com/username"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label
-                      htmlFor="website"
-                      className="flex items-center gap-2"
-                    >
-                      <Globe className="h-4 w-4 text-green-600" />
-                      Website/Portfolio
-                    </Label>
-                    <Input
-                      id="website"
-                      value={formData.website}
-                      onChange={(e) =>
-                        setFormData({ ...formData, website: e.target.value })
-                      }
-                      placeholder="https://yourwebsite.com or www.yourwebsite.com"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-2">
-                <Switch
-                  id="isActive"
-                  checked={formData.isActive}
-                  onCheckedChange={(checked) =>
-                    setFormData({ ...formData, isActive: checked })
-                  }
-                />
-                <Label htmlFor="isActive">Active</Label>
-              </div>
-
-              <div className="flex space-x-2">
-                <Button type="submit">
-                  <Save className="h-4 w-4 mr-2" />
-                  {editingId ? "Update" : "Save"}
-                </Button>
-                <Button type="button" variant="outline" onClick={cancelEdit}>
-                  <X className="h-4 w-4 mr-2" />
-                  Cancel
-                </Button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
-      )}
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={cancelEdit}>
+                <X className="h-4 w-4 mr-2" />
+                Cancel
+              </Button>
+              <Button type="submit">
+                <Save className="h-4 w-4 mr-2" />
+                {editingId ? "Update" : "Save"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {teamMembers.map((member, index) => (
@@ -468,9 +483,7 @@ export function TeamMemberManager({
                       size="sm"
                       variant="outline"
                       onClick={() => handleReorder(member.id, "up")}
-                      disabled={
-                        index === 0 || editingId !== null || showAddForm
-                      }
+                      disabled={index === 0}
                     >
                       <ArrowUp className="h-3 w-3" />
                     </Button>
@@ -478,11 +491,7 @@ export function TeamMemberManager({
                       size="sm"
                       variant="outline"
                       onClick={() => handleReorder(member.id, "down")}
-                      disabled={
-                        index === teamMembers.length - 1 ||
-                        editingId !== null ||
-                        showAddForm
-                      }
+                      disabled={index === teamMembers.length - 1}
                     >
                       <ArrowDown className="h-3 w-3" />
                     </Button>
@@ -490,7 +499,6 @@ export function TeamMemberManager({
                       size="sm"
                       variant="outline"
                       onClick={() => handleEdit(member)}
-                      disabled={editingId === member.id || showAddForm}
                     >
                       <Edit className="h-3 w-3" />
                     </Button>
@@ -498,7 +506,6 @@ export function TeamMemberManager({
                       size="sm"
                       variant="outline"
                       onClick={() => handleDelete(member.id)}
-                      disabled={editingId !== null || showAddForm}
                     >
                       <Trash2 className="h-3 w-3" />
                     </Button>

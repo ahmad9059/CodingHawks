@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
@@ -20,6 +21,7 @@ const navigation = [
   { name: "Announcements", href: "/admin/announcements", icon: Megaphone },
   { name: "Achievements", href: "/admin/achievements", icon: Trophy },
   { name: "Cabinet", href: "/admin/cabinet", icon: Users },
+  { name: "Fields", href: "/admin/fields", icon: Layers },
   { name: "Settings", href: "/admin/settings", icon: Settings },
 ];
 
@@ -36,8 +38,14 @@ export function AdminSidebar() {
       <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white dark:bg-gray-900 px-6 pb-4 border-r border-gray-200 dark:border-gray-700">
         <div className="flex h-16 shrink-0 items-center border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">CH</span>
+            <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center">
+              <Image
+                src="https://ahvnfpqkmwbozonseqqr.supabase.co/storage/v1/object/public/conding-hawks/extra/image-1.webp"
+                alt="Coding Hawks Logo"
+                width={32}
+                height={32}
+                className="object-cover"
+              />
             </div>
             <div>
               <h1 className="text-lg font-bold text-gray-900 dark:text-white">
