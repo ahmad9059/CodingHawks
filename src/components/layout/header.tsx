@@ -109,7 +109,11 @@ export function Header() {
         </nav>
 
         <div className="absolute right-4 md:right-6 flex items-center justify-end gap-2">
-          <Button asChild className="hidden md:flex rounded-lg">
+          <Button
+            asChild
+            className="hidden md:flex rounded-lg text-white hover:opacity-90 transition-opacity"
+            style={{ backgroundColor: "#5D1A75" }}
+          >
             <Link href="/#join-us" className="flex items-center gap-2">
               Join Us
               <ArrowRight className="h-4 w-4" />
@@ -158,7 +162,11 @@ export function Header() {
                       </Link>
                     ))}
                   </nav>
-                  <Button asChild className="mt-8 w-full rounded-full">
+                  <Button
+                    asChild
+                    className="mt-8 w-full rounded-full text-white hover:opacity-90 transition-opacity"
+                    style={{ backgroundColor: "#5D1A75" }}
+                  >
                     <Link
                       href="/#join-us"
                       className="flex items-center justify-center gap-2"

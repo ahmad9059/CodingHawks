@@ -177,7 +177,8 @@ export function Hero({ sliderImages }: { sliderImages: SliderImage[] }) {
             <Button
               asChild
               size="lg"
-              className="relative rounded-xl px-8 py-4 text-lg font-semibold   hover:from-purple-700 hover:to-pink-700 shadow-2xl shadow-purple-500/25 border-0 overflow-hidden"
+              className="relative rounded-xl px-8 py-4 text-lg font-semibold text-white shadow-2xl border-0 overflow-hidden hover:opacity-90 transition-opacity"
+              style={{ backgroundColor: "#5D1A75" }}
             >
               <Link href="/#join-us">
                 <span className="relative z-10">Get Started</span>
