@@ -1,0 +1,115 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      Role     @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model SliderImage {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  imageUrl    String
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("slider_images")
+}
+
+model Announcement {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  content     String?
+  imageUrl    String?
+  date        DateTime
+  buttonText  String?
+  buttonUrl   String?
+  buttonEnabled Boolean @default(false)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("announcements")
+}
+
+model Achievement {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  year        String
+  imageUrl    String?
+  buttonText  String?
+  buttonUrl   String?
+  buttonEnabled Boolean @default(false)
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("achievements")
+}
+
+model Field {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  icon        String   // Icon name from lucide-react
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("fields")
+}
+
+model TeamMember {
+  id          String   @id @default(cuid())
+  name        String
+  position    String
+  imageUrl    String?
+  bio         String?
+  linkedin    String?
+  instagram   String?
+  github      String?
+  website     String?
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("team_members")
+}
+
+model SiteSettings {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+  type  String @default("text") // text, number, boolean, json
+
+  @@map("site_settings")
+}
+
+enum Role {
+  ADMIN
+  USER
+}

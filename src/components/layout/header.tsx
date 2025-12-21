@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, Moon, Sun } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Menu, Moon, Sun, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
@@ -11,6 +12,7 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/announcements", label: "Announcements" },
   { href: "/achievements", label: "Achievements" },
+  { href: "/cabinet", label: "Cabinet" },
   { href: "/#fields", label: "Fields" },
 ];
 
@@ -43,15 +45,54 @@ function useTheme() {
   return { theme, toggleTheme };
 }
 
+function useScrollPosition() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    // Only apply scroll logic on home page
+    if (pathname !== "/") {
+      setIsScrolled(true); // Always use dark text on non-home pages
+      return;
+    }
+
+    const handleScroll = () => {
+      // Change color after scrolling past the hero section (approximately 80vh)
+      const scrollPosition = window.scrollY;
+      const heroHeight = window.innerHeight * 0.8;
+      setIsScrolled(scrollPosition > heroHeight);
+    };
+
+    // Reset to white text when on home page
+    setIsScrolled(false);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [pathname]);
+
+  return isScrolled;
+}
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const isScrolled = useScrollPosition();
+
+  // Dynamic text colors based on scroll position
+  const textColor = isScrolled ? "text-foreground" : "text-white";
+  const hoverTextColor = isScrolled
+    ? "hover:text-foreground/80"
+    : "hover:text-white/80";
+  const hoverBgColor = isScrolled
+    ? "hover:bg-foreground/10"
+    : "hover:bg-white/10";
 
   return (
     <header className="sticky top-0 z-50 w-full bg-transparent backdrop-blur-sm">
       <div className="container mx-auto flex h-20 max-w-screen-xl items-center justify-center px-4 md:px-6">
         <div className="absolute left-4 md:left-6 flex items-center">
-          <Logo />
+          <Logo
+            className={`${textColor} ${hoverTextColor} transition-colors duration-300`}
+          />
         </div>
 
         <nav className="hidden items-center justify-center gap-2 md:flex">
@@ -59,7 +100,7 @@ export function Header() {
             <Button key={link.href} variant="ghost" asChild>
               <Link
                 href={link.href}
-                className="text-base font-medium text-white transition-colors hover:text-white/80 hover:bg-white/10 px-4 py-2 rounded-md"
+                className={`text-base font-medium ${textColor} transition-colors duration-300 ${hoverTextColor} ${hoverBgColor} px-4 py-2 rounded-md`}
               >
                 {link.label}
               </Link>
@@ -69,13 +110,16 @@ export function Header() {
 
         <div className="absolute right-4 md:right-6 flex items-center justify-end gap-2">
           <Button asChild className="hidden md:flex rounded-lg">
-            <Link href="/#join-us">Join Us</Link>
+            <Link href="/#join-us" className="flex items-center gap-2">
+              Join Us
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </Button>
           <Button
             variant="ghost"
             size="icon"
             onClick={toggleTheme}
-            className="hidden md:flex text-white hover:bg-white/10"
+            className={`hidden md:flex ${textColor} ${hoverBgColor} transition-colors duration-300`}
           >
             {theme === "light" ? (
               <Moon className="h-6 w-6" />
@@ -88,7 +132,9 @@ export function Header() {
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
-                  <Menu className="h-6 w-6 text-white" />
+                  <Menu
+                    className={`h-6 w-6 ${textColor} transition-colors duration-300`}
+                  />
                   <span className="sr-only">Open menu</span>
                 </Button>
               </SheetTrigger>
@@ -98,7 +144,7 @@ export function Header() {
               >
                 <div className="flex h-full flex-col p-6">
                   <div className="mb-8 flex items-center">
-                    <Logo />
+                    <Logo className="text-foreground hover:text-foreground/80" />
                   </div>
                   <nav className="flex flex-col gap-6">
                     {navLinks.map((link) => (
@@ -113,7 +159,13 @@ export function Header() {
                     ))}
                   </nav>
                   <Button asChild className="mt-8 w-full rounded-full">
-                    <Link href="/#join-us">Join Us</Link>
+                    <Link
+                      href="/#join-us"
+                      className="flex items-center justify-center gap-2"
+                    >
+                      Join Us
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
                   </Button>
                   <div className="mt-auto flex items-center justify-between">
                     <span>Switch Theme</span>

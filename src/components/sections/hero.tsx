@@ -4,10 +4,19 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { BackgroundSlider } from "@/components/ui/background-slider";
-import { ArrowRight, Code, Users, Trophy, Sparkles } from "lucide-react";
+import { ArrowRight, Code, Users, Trophy, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export function Hero() {
+type SliderImage = {
+  id: string;
+  title: string;
+  description: string | null;
+  imageUrl: string;
+  order: number;
+  isActive: boolean;
+};
+
+export function Hero({ sliderImages }: { sliderImages: SliderImage[] }) {
   const [dimensions, setDimensions] = useState({ width: 1200, height: 800 });
   const [isClient, setIsClient] = useState(false);
 
@@ -29,17 +38,20 @@ export function Hero() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Array of background images from the ch folder
-  const backgroundImages = [
-    "/ch/ch-1.webp",
-    "/ch/ch-2.webp",
-    "/ch/ch-3.webp",
-    "/ch/ch-4.webp",
-    "/ch/ch-5.webp",
-    "/ch/ch-6.webp",
-    "/ch/ch-7.webp",
-    "/ch/ch-8.webp",
-  ];
+  // Use slider images from database, fallback to local images if none available
+  const backgroundImages =
+    sliderImages.length > 0
+      ? sliderImages.map((img) => img.imageUrl)
+      : [
+          "/ch/ch-1.webp",
+          "/ch/ch-2.webp",
+          "/ch/ch-3.webp",
+          "/ch/ch-4.webp",
+          "/ch/ch-5.webp",
+          "/ch/ch-6.webp",
+          "/ch/ch-7.webp",
+          "/ch/ch-8.webp",
+        ];
 
   const features = [
     { icon: Code, text: "Learn to Code" },
@@ -91,9 +103,9 @@ export function Hero() {
         >
           <div className="rounded-full border border-white/30 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-md px-6 py-2 text-sm font-medium text-white shadow-xl">
             <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-yellow-300" />
+              <Star className="h-4 w-4 text-purple-300 fill-purple-300" />
               Fueling Creativity, Collaboration, and Coding Excellence
-              <Sparkles className="h-4 w-4 text-yellow-300" />
+              <Star className="h-4 w-4 text-purple-300 fill-purple-300" />
             </div>
           </div>
           {/* Glow effect */}

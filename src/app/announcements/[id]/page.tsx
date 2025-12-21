@@ -1,80 +1,120 @@
-'use client';
+import Image from "next/image";
+import { notFound } from "next/navigation";
+import { format } from "date-fns";
+import { Calendar, ExternalLink } from "lucide-react";
+import { MotionWrapper } from "@/components/motion-wrapper";
+import { Button } from "@/components/ui/button";
+import { prisma } from "@/lib/prisma";
+import { ensureAbsoluteUrl } from "@/lib/url-utils";
 
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import { notFound } from 'next/navigation';
-import { format } from 'date-fns';
-import { Calendar } from 'lucide-react';
-import { getAnnouncementById } from '@/lib/data';
-import type { Announcement } from '@/lib/types';
-import { Skeleton } from '@/components/ui/skeleton';
-import { MotionWrapper } from '@/components/motion-wrapper';
+// Force dynamic rendering
+export const dynamic = "force-dynamic";
 
-function AnnouncementDetailSkeleton() {
-  return (
-    <div className="space-y-8">
-      <Skeleton className="h-12 w-3/4" />
-      <Skeleton className="h-6 w-1/2" />
-      <Skeleton className="h-[400px] w-full rounded-xl" />
-      <div className="space-y-4">
-        <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-4 w-5/6" />
-        <Skeleton className="h-4 w-3/4" />
-      </div>
-    </div>
-  );
+async function getAnnouncement(id: string) {
+  try {
+    const announcement = await prisma.announcement.findUnique({
+      where: {
+        id: id,
+        isActive: true,
+      },
+    });
+    return announcement;
+  } catch (error) {
+    console.error("Error fetching announcement:", error);
+    return null;
+  }
 }
 
-export default function AnnouncementDetailPage({ params }: { params: { id: string } }) {
-  const [announcement, setAnnouncement] = useState<Announcement | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchData() {
-      const data = await getAnnouncementById(params.id);
-      setAnnouncement(data);
-      setLoading(false);
-    }
-    fetchData();
-  }, [params.id]);
-
-  if (loading) {
-    return <AnnouncementDetailSkeleton />;
-  }
+export default async function AnnouncementDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const announcement = await getAnnouncement(id);
 
   if (!announcement) {
     notFound();
   }
 
   return (
-    <MotionWrapper>
-      <article className="prose prose-lg mx-auto dark:prose-invert prose-headings:font-headline prose-a:text-primary hover:prose-a:text-primary/80">
-        <div className="space-y-4 not-prose">
-          <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-            {announcement.title}
-          </h1>
+    <div className="py-20 lg:py-24">
+      <div className="container mx-auto max-w-4xl px-4 md:px-6">
+        <MotionWrapper>
+          <article className="prose prose-lg mx-auto dark:prose-invert prose-headings:font-headline prose-a:text-primary hover:prose-a:text-primary/80">
+            <div className="space-y-4 not-prose">
+              <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+                {announcement.title}
+              </h1>
 
-          <div className="flex items-center text-muted-foreground">
-            <Calendar className="mr-2 h-5 w-5" />
-            <time dateTime={announcement.date}>
-              {format(new Date(announcement.date), 'MMMM d, yyyy')}
-            </time>
-          </div>
-        </div>
+              <div className="flex items-center text-muted-foreground">
+                <Calendar className="mr-2 h-5 w-5" />
+                <time dateTime={announcement.date.toISOString()}>
+                  {format(new Date(announcement.date), "MMMM d, yyyy")}
+                </time>
+              </div>
+            </div>
 
-        <div className="relative mt-8 overflow-hidden rounded-xl">
-          <Image
-            src={announcement.imageUrl}
-            alt={announcement.title}
-            width={1200}
-            height={675}
-            className="w-full object-cover"
-          />
-        </div>
+            {/* Image */}
+            {announcement.imageUrl ? (
+              <div className="relative mt-8 overflow-hidden rounded-xl">
+                <Image
+                  src={announcement.imageUrl}
+                  alt={announcement.title}
+                  width={1200}
+                  height={675}
+                  className="w-full object-cover"
+                />
+              </div>
+            ) : (
+              <div className="relative mt-8 overflow-hidden rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center h-64">
+                <div className="text-center">
+                  <Calendar className="h-16 w-16 text-primary/30 mx-auto mb-4" />
+                  <p className="text-lg text-primary/50 font-medium">
+                    No Image Available
+                  </p>
+                </div>
+              </div>
+            )}
 
-        <div className="mt-8" dangerouslySetInnerHTML={{ __html: announcement.content }} />
-      </article>
-    </MotionWrapper>
+            {/* Content */}
+            <div className="mt-8">
+              {announcement.content ? (
+                <div
+                  dangerouslySetInnerHTML={{ __html: announcement.content }}
+                />
+              ) : (
+                <div className="text-lg leading-relaxed">
+                  <p>{announcement.description}</p>
+                </div>
+              )}
+            </div>
+
+            {/* Custom Button - if enabled */}
+            {announcement.buttonEnabled &&
+              announcement.buttonText &&
+              announcement.buttonUrl && (
+                <div className="mt-8 not-prose">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+                  >
+                    <a
+                      href={ensureAbsoluteUrl(announcement.buttonUrl) || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2"
+                    >
+                      {announcement.buttonText}
+                      <ExternalLink className="h-5 w-5" />
+                    </a>
+                  </Button>
+                </div>
+              )}
+          </article>
+        </MotionWrapper>
+      </div>
+    </div>
   );
 }
