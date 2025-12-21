@@ -31,14 +31,14 @@ export function Hero() {
 
   // Array of background images from the ch folder
   const backgroundImages = [
-    "/ch/ch-1.jpg",
-    "/ch/ch-2.jpg",
-    "/ch/ch-3.jpg",
-    "/ch/ch-4.jpg",
-    "/ch/ch5.jpg",
-    "/ch/ch-6.jpg",
-    "/ch/ch-7.jpg",
-    "/ch/ch-8.jpg",
+    "/ch/ch-1.webp",
+    "/ch/ch-2.webp",
+    "/ch/ch-3.webp",
+    "/ch/ch-4.webp",
+    "/ch/ch-5.webp",
+    "/ch/ch-6.webp",
+    "/ch/ch-7.webp",
+    "/ch/ch-8.webp",
   ];
 
   const features = [
