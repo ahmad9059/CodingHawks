@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -36,35 +33,35 @@ model SliderImage {
 }
 
 model Announcement {
-  id          String   @id @default(cuid())
-  title       String
-  description String
-  content     String?
-  imageUrl    String?
-  date        DateTime
-  buttonText  String?
-  buttonUrl   String?
-  buttonEnabled Boolean @default(false)
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            String   @id @default(cuid())
+  title         String
+  description   String
+  content       String?
+  imageUrl      String?
+  date          DateTime
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  buttonEnabled Boolean  @default(false)
+  buttonText    String?
+  buttonUrl     String?
 
   @@map("announcements")
 }
 
 model Achievement {
-  id          String   @id @default(cuid())
-  title       String
-  description String
-  year        String
-  imageUrl    String?
-  buttonText  String?
-  buttonUrl   String?
-  buttonEnabled Boolean @default(false)
-  order       Int      @default(0)
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            String   @id @default(cuid())
+  title         String
+  description   String
+  year          String
+  imageUrl      String?
+  order         Int      @default(0)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  buttonEnabled Boolean  @default(false)
+  buttonText    String?
+  buttonUrl     String?
 
   @@map("achievements")
 }
@@ -73,7 +70,7 @@ model Field {
   id          String   @id @default(cuid())
   title       String
   description String
-  icon        String   // Icon name from lucide-react
+  icon        String
   order       Int      @default(0)
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
@@ -83,19 +80,19 @@ model Field {
 }
 
 model TeamMember {
-  id          String   @id @default(cuid())
-  name        String
-  position    String
-  imageUrl    String?
-  bio         String?
-  linkedin    String?
-  instagram   String?
-  github      String?
-  website     String?
-  order       Int      @default(0)
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String   @id @default(cuid())
+  name      String
+  position  String
+  imageUrl  String?
+  bio       String?
+  linkedin  String?
+  instagram String?
+  github    String?
+  website   String?
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("team_members")
 }
@@ -104,7 +101,7 @@ model SiteSettings {
   id    String @id @default(cuid())
   key   String @unique
   value String
-  type  String @default("text") // text, number, boolean, json
+  type  String @default("text")
 
   @@map("site_settings")
 }

@@ -84,10 +84,9 @@ export default async function AchievementDetailPage({
             </div>
 
             {/* Custom Button - if enabled */}
-            {/* Temporarily commented out due to TypeScript caching issues
-            {achievement.buttonEnabled &&
-              achievement.buttonText &&
-              achievement.buttonUrl && (
+            {(achievement as any).buttonEnabled &&
+              (achievement as any).buttonText &&
+              (achievement as any).buttonUrl && (
                 <div className="mt-8 not-prose">
                   <Button
                     asChild
@@ -95,18 +94,19 @@ export default async function AchievementDetailPage({
                     className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
                   >
                     <a
-                      href={ensureAbsoluteUrl(achievement.buttonUrl) || "#"}
+                      href={
+                        ensureAbsoluteUrl((achievement as any).buttonUrl) || "#"
+                      }
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2"
                     >
-                      {achievement.buttonText}
+                      {(achievement as any).buttonText}
                       <ExternalLink className="h-5 w-5" />
                     </a>
                   </Button>
                 </div>
               )}
-            */}
           </article>
         </MotionWrapper>
       </div>

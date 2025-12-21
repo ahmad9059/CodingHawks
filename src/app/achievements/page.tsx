@@ -1,10 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Trophy, Award, Star, Medal, Crown, ExternalLink } from "lucide-react";
+import { Trophy, Award, Star, Medal, Crown } from "lucide-react";
 import { MotionWrapper } from "@/components/motion-wrapper";
-import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
-import { ensureAbsoluteUrl } from "@/lib/url-utils";
 
 // Force dynamic rendering
 export const dynamic = "force-dynamic";
@@ -129,33 +127,6 @@ export default async function AchievementsPage() {
                           </div>
                         </div>
                       </Link>
-
-                      {/* Custom Button - Outside the Link to prevent nesting */}
-                      {item.buttonEnabled &&
-                        item.buttonText &&
-                        item.buttonUrl && (
-                          <div className="relative -mt-6 mr-8 z-10">
-                            <div className="bg-card rounded-lg p-3 shadow-lg border border-border/50">
-                              <Button
-                                asChild
-                                size="sm"
-                                className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
-                              >
-                                <a
-                                  href={
-                                    ensureAbsoluteUrl(item.buttonUrl) || "#"
-                                  }
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="flex items-center gap-2"
-                                >
-                                  {item.buttonText}
-                                  <ExternalLink className="h-4 w-4" />
-                                </a>
-                              </Button>
-                            </div>
-                          </div>
-                        )}
                     </div>
                   )}
                 </div>
@@ -228,33 +199,6 @@ export default async function AchievementsPage() {
                           </div>
                         </div>
                       </Link>
-
-                      {/* Custom Button - Outside the Link to prevent nesting */}
-                      {item.buttonEnabled &&
-                        item.buttonText &&
-                        item.buttonUrl && (
-                          <div className="relative -mt-6 ml-8 z-10">
-                            <div className="bg-card rounded-lg p-3 shadow-lg border border-border/50">
-                              <Button
-                                asChild
-                                size="sm"
-                                className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
-                              >
-                                <a
-                                  href={
-                                    ensureAbsoluteUrl(item.buttonUrl) || "#"
-                                  }
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="flex items-center gap-2"
-                                >
-                                  {item.buttonText}
-                                  <ExternalLink className="h-4 w-4" />
-                                </a>
-                              </Button>
-                            </div>
-                          </div>
-                        )}
                     </div>
                   )}
                 </div>
