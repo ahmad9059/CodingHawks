@@ -147,7 +147,7 @@ export function Hero({
           {settings.hero_subtitle || (
             <>
               Empowering the next generation of{" "}
-              <span className="font-semibold bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
+              <span className="font-semibold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
                 innovative coders
               </span>{" "}
               at MNS-University of Agriculture, Multan.
