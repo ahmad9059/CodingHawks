@@ -10,14 +10,37 @@ import {
 } from "lucide-react";
 import { Logo } from "@/components/logo";
 
-const socialLinks = [
-  { icon: Twitter, href: "#", name: "Twitter" },
-  { icon: Github, href: "#", name: "GitHub" },
-  { icon: Linkedin, href: "#", name: "LinkedIn" },
-  { icon: Instagram, href: "#", name: "Instagram" },
-];
+type SiteSettings = {
+  [key: string]: string;
+};
 
-export function Footer() {
+interface FooterProps {
+  settings: SiteSettings;
+}
+
+export function Footer({ settings }: FooterProps) {
+  const socialLinks = [
+    {
+      icon: Twitter,
+      href: settings.social_twitter || "#",
+      name: "Twitter",
+    },
+    {
+      icon: Github,
+      href: settings.social_github || "#",
+      name: "GitHub",
+    },
+    {
+      icon: Linkedin,
+      href: settings.social_linkedin || "#",
+      name: "LinkedIn",
+    },
+    {
+      icon: Instagram,
+      href: settings.social_instagram || "#",
+      name: "Instagram",
+    },
+  ];
   return (
     <footer className="bg-gray-50 dark:bg-gray-900 py-16">
       <div className="container mx-auto px-4 md:px-6">
@@ -29,9 +52,8 @@ export function Footer() {
               <Logo className="text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-300" />
             </div>
             <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md leading-relaxed">
-              Empowering the next generation of innovative coders and tech
-              leaders at MNS-University of Agriculture, Multan. Turn your
-              everyday coding into extraordinary opportunities.
+              {settings.site_description ||
+                "Empowering the next generation of innovative coders and tech leaders at MNS-University of Agriculture, Multan. Turn your everyday coding into extraordinary opportunities."}
             </p>
 
             {/* Social Links */}
@@ -194,7 +216,7 @@ export function Footer() {
                   Email
                 </p>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  support@codinghawks.com
+                  {settings.contact_email || "support@codinghawks.com"}
                 </p>
               </div>
             </div>
@@ -205,7 +227,7 @@ export function Footer() {
                   Phone
                 </p>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  +1 (234) 567-890
+                  {settings.contact_phone || "+1 (234) 567-890"}
                 </p>
               </div>
             </div>
@@ -227,7 +249,8 @@ export function Footer() {
         <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              © {new Date().getFullYear()} Coding Hawks. All rights reserved.
+              © {new Date().getFullYear()}{" "}
+              {settings.site_title || "Coding Hawks"}. All rights reserved.
             </p>
             <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-400">
               <Link

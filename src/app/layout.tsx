@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { Loader } from "@/components/loader";
 import { AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 
 const fontBody = Inter({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({
   const [loading, setLoading] = useState(true);
   const [themeLoaded, setThemeLoaded] = useState(false);
   const pathname = usePathname();
+  const { settings } = useSiteSettings();
 
   // Check if we're on an admin page
   const isAdminPage = pathname?.startsWith("/admin");
@@ -49,10 +51,17 @@ export default function RootLayout({
   return (
     <html lang="en" className="!scroll-smooth" suppressHydrationWarning>
       <head>
-        <title>Coding Hawks - Coding Hawks Society</title>
+        <title>
+          {settings.site_title
+            ? `${settings.site_title} - Coding Hawks Society`
+            : "Coding Hawks - Coding Hawks Society"}
+        </title>
         <meta
           name="description"
-          content="Empowering the next generation of coders at MNS-University of Agriculture, Multan."
+          content={
+            settings.site_description ||
+            "Empowering the next generation of coders at MNS-University of Agriculture, Multan."
+          }
         />
       </head>
       <body
@@ -79,7 +88,7 @@ export default function RootLayout({
           >
             {children}
           </main>
-          {!isAdminPage && <Footer />}
+          {!isAdminPage && <Footer settings={settings} />}
           <Toaster />
         </div>
       </body>

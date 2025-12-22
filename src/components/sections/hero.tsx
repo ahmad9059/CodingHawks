@@ -16,7 +16,17 @@ type SliderImage = {
   isActive: boolean;
 };
 
-export function Hero({ sliderImages }: { sliderImages: SliderImage[] }) {
+type SiteSettings = {
+  [key: string]: string;
+};
+
+export function Hero({
+  sliderImages,
+  settings = {},
+}: {
+  sliderImages: SliderImage[];
+  settings?: SiteSettings;
+}) {
   const [dimensions, setDimensions] = useState({ width: 1200, height: 800 });
   const [isClient, setIsClient] = useState(false);
 
@@ -104,7 +114,8 @@ export function Hero({ sliderImages }: { sliderImages: SliderImage[] }) {
           <div className="rounded-full border border-white/30 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-md px-6 py-2 text-sm font-medium text-white shadow-xl">
             <div className="flex items-center gap-2">
               <Star className="h-4 w-4 text-purple-300 fill-purple-300" />
-              Fueling Creativity, Collaboration, and Coding Excellence
+              {settings.hero_title ||
+                "Fueling Creativity, Collaboration, and Coding Excellence"}
               <Star className="h-4 w-4 text-purple-300 fill-purple-300" />
             </div>
           </div>
@@ -120,7 +131,7 @@ export function Hero({ sliderImages }: { sliderImages: SliderImage[] }) {
           className="font-headline text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-white mb-6"
         >
           <span className="bg-gradient-to-r from-purple-600 via-purple-600 to-purple-600 bg-clip-text text-transparent drop-shadow-2xl">
-            Coding Hawks
+            {settings.site_title || "Coding Hawks"}
           </span>
           <br />
           <span className="text-white/90 drop-shadow-2xl">Society</span>
@@ -133,11 +144,15 @@ export function Hero({ sliderImages }: { sliderImages: SliderImage[] }) {
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           className="mt-4 max-w-3xl text-xl md:text-2xl text-white/95 drop-shadow-lg font-medium leading-relaxed"
         >
-          Empowering the next generation of{" "}
-          <span className="font-semibold bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
-            innovative coders
-          </span>{" "}
-          at MNS-University of Agriculture, Multan.
+          {settings.hero_subtitle || (
+            <>
+              Empowering the next generation of{" "}
+              <span className="font-semibold bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
+                innovative coders
+              </span>{" "}
+              at MNS-University of Agriculture, Multan.
+            </>
+          )}
         </motion.p>
 
         {/* Feature highlights */}

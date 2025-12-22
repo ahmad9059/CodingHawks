@@ -204,6 +204,11 @@ const siteSettingsData = [
     value: "https://instagram.com/codinghawks",
     type: "url",
   },
+  {
+    key: "social_github",
+    value: "https://github.com/codinghawks",
+    type: "url",
+  },
 ];
 
 async function seedData() {

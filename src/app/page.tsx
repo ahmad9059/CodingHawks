@@ -43,7 +43,7 @@ export default async function Home() {
 
   return (
     <>
-      <Hero sliderImages={sliderImages} />
+      <Hero sliderImages={sliderImages} settings={settings} />
       <About settings={settings} />
       <LogoCarousel />
       <Fields fields={fields} />

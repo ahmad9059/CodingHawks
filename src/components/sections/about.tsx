@@ -63,7 +63,7 @@ export function About({ settings }: { settings: SiteSettings }) {
                     <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
                       {settings.about_members_count || "500+"}
                     </div>
-                    <div className="text-sm text-foreground/70">
+                    <div className="text-lg text-foreground/70">
                       Active Members
                     </div>
                   </div>
@@ -71,7 +71,7 @@ export function About({ settings }: { settings: SiteSettings }) {
                     <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
                       {settings.about_projects_count || "50+"}
                     </div>
-                    <div className="text-sm text-foreground/70">
+                    <div className="text-lg text-foreground/70">
                       Projects Completed
                     </div>
                   </div>
