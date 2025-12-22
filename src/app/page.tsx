@@ -1,5 +1,6 @@
 import { Hero } from "@/components/sections/hero";
 import { About } from "@/components/sections/about";
+import { LogoCarousel } from "@/components/sections/logo-carousel";
 import { Fields } from "@/components/sections/fields";
 import { Achievements } from "@/components/sections/achievements";
 import { JoinUs } from "@/components/sections/join-us";
@@ -44,6 +45,7 @@ export default async function Home() {
     <>
       <Hero sliderImages={sliderImages} />
       <About settings={settings} />
+      <LogoCarousel />
       <Fields fields={fields} />
       <Achievements achievements={achievements} />
       <JoinUs />

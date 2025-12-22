@@ -25,11 +25,25 @@ export function About({ settings }: { settings: SiteSettings }) {
                   <Rocket className="h-4 w-4" />
                   Innovation Hub
                 </div>
-                <h2 className="font-headline text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-                  {settings.about_title || "About"}{" "}
-                  <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                    Coding Hawks
-                  </span>
+                <h2
+                  className="font-headline text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+                  style={{ fontWeight: 700 }}
+                >
+                  {(() => {
+                    const title = settings.about_title || "About Coding Hawks";
+                    const words = title.split(" ");
+                    const firstWord = words[0];
+                    const restOfTitle = words.slice(1).join(" ");
+
+                    return (
+                      <>
+                        {firstWord}{" "}
+                        <span className="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                          {restOfTitle}
+                        </span>
+                      </>
+                    );
+                  })()}
                 </h2>
               </div>
 

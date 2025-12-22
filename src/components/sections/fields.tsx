@@ -139,7 +139,10 @@ export function Fields({ fields }: { fields: Field[] }) {
             What We Offer
           </div>
 
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+          <h2
+            className="text-3xl md:text-4xl lg:text-5xl font-headline text-gray-900 dark:text-white mb-6"
+            style={{ fontWeight: 700 }}
+          >
             Our Fields of <span className="text-[#5D1A75]">Expertise</span>
           </h2>
 

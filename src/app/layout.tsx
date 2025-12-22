@@ -3,7 +3,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Toaster } from "@/components/ui/toaster";
-import { Inter } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { Loader } from "@/components/loader";
@@ -15,9 +15,9 @@ const fontBody = Inter({
   variable: "--font-body",
 });
 
-const fontHeadline = Inter({
+const fontHeadline = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-headline",
 });
 
