@@ -2,10 +2,11 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 
 export function JoinUs() {
-  const googleFormUrl = "https://docs.google.com/forms"; // Placeholder URL
+  const { settings, loading } = useSiteSettings();
+  const joinUsUrl = settings.join_us || "https://docs.google.com/forms"; // Fallback URL
 
   return (
     <section
@@ -41,9 +42,10 @@ export function JoinUs() {
               asChild
               size="lg"
               className="bg-white text-[#5D1A75] hover:bg-white/90 px-8 py-4 text-lg font-medium rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+              disabled={loading}
             >
               <Link
-                href={googleFormUrl}
+                href={joinUsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-sans"
