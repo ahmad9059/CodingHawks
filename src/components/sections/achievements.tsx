@@ -89,11 +89,6 @@ function TimelineItem({
             <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-2">
               {achievement.description}
             </p>
-
-            {/* Read more indicator */}
-            <span className="text-sm text-[#5D1A75] font-medium mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 inline-block">
-              Read more →
-            </span>
           </div>
         </Link>
       </div>
