@@ -83,7 +83,7 @@ export default async function AchievementsPage() {
                         className="block group cursor-pointer"
                       >
                         <div
-                          className={`relative ml-auto w-full max-w-md rounded-2xl border-2 ${borderColor} bg-card p-8 shadow-xl transition-all duration-500 hover:shadow-2xl overflow-hidden`}
+                          className={`relative ml-auto w-full max-w-md rounded-2xl border-2 ${borderColor} bg-card p-6 shadow-xl transition-all duration-500 hover:shadow-2xl overflow-hidden`}
                         >
                           {/* Background gradient effect */}
                           <div
@@ -118,12 +118,14 @@ export default async function AchievementsPage() {
                               {item.title}
                             </h3>
 
-                            <p className="text-foreground/70 leading-relaxed group-hover:text-foreground/90 transition-colors duration-300 mb-4">
+                            <p className="text-foreground/70 leading-relaxed group-hover:text-foreground/90 transition-colors duration-300 mb-1 line-clamp-2">
                               {item.description}
                             </p>
 
-                            {/* Bottom accent line */}
-                            <div className="h-1 w-0 bg-gradient-to-r from-primary to-primary/50 group-hover:w-full transition-all duration-500 rounded-full ml-auto"></div>
+                            {/* Read more indicator */}
+                            <span className="text-sm text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                              Read more →
+                            </span>
                           </div>
                         </div>
                       </Link>
@@ -155,7 +157,7 @@ export default async function AchievementsPage() {
                         className="block group cursor-pointer"
                       >
                         <div
-                          className={`relative mr-auto w-full max-w-md rounded-2xl border-2 ${borderColor} bg-card p-8 shadow-xl transition-all duration-500 hover:shadow-2xl overflow-hidden`}
+                          className={`relative mr-auto w-full max-w-md rounded-2xl border-2 ${borderColor} bg-card p-6 shadow-xl transition-all duration-500 hover:shadow-2xl overflow-hidden`}
                         >
                           {/* Background gradient effect */}
                           <div
@@ -190,12 +192,14 @@ export default async function AchievementsPage() {
                               {item.title}
                             </h3>
 
-                            <p className="text-foreground/70 leading-relaxed group-hover:text-foreground/90 transition-colors duration-300 mb-4">
+                            <p className="text-foreground/70 leading-relaxed group-hover:text-foreground/90 transition-colors duration-300 mb-4 line-clamp-2">
                               {item.description}
                             </p>
 
-                            {/* Bottom accent line */}
-                            <div className="h-1 w-0 bg-gradient-to-r from-primary to-primary/50 group-hover:w-full transition-all duration-500 rounded-full"></div>
+                            {/* Read more indicator */}
+                            <span className="text-sm text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                              Read more →
+                            </span>
                           </div>
                         </div>
                       </Link>

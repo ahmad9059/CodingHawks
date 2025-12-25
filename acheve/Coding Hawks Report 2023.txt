@@ -1,0 +1,102 @@
+﻿
+ 
+MNSUAM, 
+Institute of Computing
+Yearly Report 2023: Coding Hawks 
+We extend our deepest gratitude to Assistant Professor Dr. Nadeem 
+Iqbal Kajla for their unwavering support, guidance, and mentorship. Their wealth of knowledge and experience have been invaluable in ensuring the growth and development of our society. 
+ 
+Coding Hawks Society at MNSUAM Rings in the New Year with Appreciation and Excitement 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+About: 
+In today's rapidly changing environment, programming skills are essential tools that can be utilized and incorporated into various fields and domains. Hence, it becomes absolutely essential to equip young minds with such skills. Coding Club aims to establish a coding culture on campus, reaching every student passionate about coding. The club's motto is to Create-Build-Innovate. 
+
+ 
+Coding Hawks Triumphs at Falling Walls Lab 2023: A Global Achievement:   (July-Nov, 2023)
+🌐 National to International Success (3rd July, 2023 @ Falling walls lab Lahore):
+
+In the dynamic world of coding and innovation, where breakthrough ideas are the currency of progress, Coding Hawks has once again demonstrated its prowess on the global stage. We are thrilled to share the remarkable journey of Asma Rehman, a dedicated member of our community, and Dr. Nadeem Iqbal, the Club In-charge of Coding Hawks. Their project, "AI-based Bee Hive," secured 1st place nationally and represented our university on the global stage.
+
+
+
+
+
+🌍 International Debut in Berlin (7th Nov, 2023 @ Falling walls lab Berlin):
+With their national victory, Asma and Dr. Nadeem earned the golden ticket to the global finale in Berlin, Germany. The Falling Walls Lab provided them with a stage to present their solutions to pressing global challenges, with just three minutes to captivate a jury of experts and the worldwide audience. While the ultimate title eluded them, their participation was an unparalleled achievement, marking the first-ever representation of our university at an international level.
+
+
+
+
+
+
+
+
+Coding Hawks Cultivates Success at Venture Spark (Nov 29, 2023):
+
+Special Prize at Venture Spark of Rupees 10,000:
+Mariyam Pervez, a brilliant member of Coding Hawks, sowed the seeds of innovation with her project titled "Automatic Weed Detection and Spraying Robot." Under the guidance of Dr. Nadeem Iqbal, Mariyam participated in the prestigious business idea competition, Venture Spark. Mariyam Pervez's success at Venture Spark adds another feather to Coding Hawks' cap. It showcases our commitment to fostering innovation and empowering our members to create solutions that not only excel in technical prowess but also hold immense practical value.
+
+
+
+Venture Spark Prize Nominee:
+Being shortlisted for the Special Prize at Venture Spark comes with a reward-a chance to win Rupees 10,000. This acknowledgment not only highlights Mariyam's innovation but also positions Coding Hawks as a hub for impactful and commercially viable ideas. As we celebrate Mariyam's achievement, we look forward to the continued growth of Coding Hawks as a breeding ground for inventive minds. Mariyam's Automatic Weed Detection and Spraying Robot is a glimpse into the future of sustainable agriculture.
+
+
+
+
+
+Workshop on Mobile Application Development Instagram Clone using React Native (April, 2023): 
+The Coding Hawks workshop on React Native, held from May 15th to May 17th, 2023, was a resounding success. Participants gained in-depth knowledge of React Native development and acquired essential skills to build cross-platform mobile applications. From understanding the fundamentals of React and setting up the development environment to mastering folder structure and designing reusable components, attendees were equipped with the tools needed to create clean, scalable, and visually appealing interfaces. The workshop's interactive exercises and realworld tasks provided hands-on practice, reinforcing the concepts covered. The student challenge encouraged participants to showcase their skills and creativity, fostering a sense of healthy competition. Congratulations to all the participants for their dedication and enthusiasm throughout the workshop. They are now well-prepared to excel in their future mobile app development endeavors. 
+
+
+ 
+
+Code{In} Spring 2023 competition held in NUML Multan (April, 2023): 
+The Code{In} Spring 2023 competition held at NUML Multan witnessed exceptional achievements by the participating students. Their dedication, skills, and hard work were evident throughout the competition, resulting in remarkable accomplishments. 
+• Muhammad Sami secured the first-place position in the Coding in C++ category. His exceptional coding skills, strong grasp of C++ concepts, and ability to efficiently solve complex problems set him apart from other participants. His dedication and consistent performance throughout the competition were commendable, earning him the top spot in this category. 
+• Muneeb Bilal achieved the second-place position in the Poster Designing category. His creative talent, eye-catching designs, and ability to effectively communicate messages through visual representations impressed the judges. Muneeb attention to detail, artistic skills, and innovative approach to poster designing earned him the well-deserved second place in this category. 
+ 
+
+ 
+Microsoft Imagine Cup 2023 competition (February, 2023): 
+The Microsoft Imagine Cup 2023 competition witnessed exceptional achievements by the participating students, showcasing their remarkable talent and innovation. The competition provided a platform for students to showcase their technical skills, problem-solving abilities, and creativity in various categories. The competition served as a platform for students to not only showcase their skills but also learn from their peers and industry professionals, fostering growth and collaboration within the technology community. 
+
+
+ 
+ 	 
+
+Cabinet Meeting (February, 2023): 
+The 	Hawks 	are 	gathered 	to 	discuss 	their 	annual 	goals 	and 	upcoming 	projects 
+As We all want to be inspired. It is the true test of a leader, who inspires his team to perform on a day when everyone else is dragging, running low on motivation. We wanted to take a moment to express our sincere gratitude for Dr. Nadeem Iqbal Your leadership and guidance have been instrumental in our success, and we truly appreciate your hard work, dedication and vision that inspired us. 
+ 
+ 	 
+
+Workshop on DevOPs (January, 2023): 
+The DevOps Workshop provided participants with the necessary tools and techniques to embrace DevOps practices and drive efficiency and innovation within their organizations. The attendees left the workshop equipped with the knowledge and skills to implement DevOps methodologies, automate workflows, enhance collaboration, and deliver high-quality software products at an accelerated pace. Real-world case studies and interactive exercises allowed participants to apply their newly acquired knowledge in practical scenarios. They tackled challenges related to configuration management, deployment pipelines, and monitoring, honing their problem-solving skills and gaining confidence in their ability to address real-world DevOps challenges. 
+ 
+ 
+ 	 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

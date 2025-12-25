@@ -11,7 +11,6 @@ import {
   ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { MotionWrapper } from "@/components/motion-wrapper";
 import { Button } from "@/components/ui/button";
 
@@ -69,40 +68,34 @@ function TimelineItem({
           isLeft ? "pr-8 text-right" : "pl-8 text-left order-2"
         }`}
       >
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow duration-300">
-          {/* Image */}
-          {achievement.imageUrl && (
-            <div className="w-full h-40 rounded-lg overflow-hidden mb-4">
-              <Image
-                src={achievement.imageUrl}
-                alt={achievement.title}
-                width={400}
-                height={160}
-                className="w-full h-full object-cover"
-              />
+        <Link href={`/achievements/${achievement.id}`} className="block group">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer">
+            {/* Year badge */}
+            <div
+              className={`inline-flex items-center gap-2 bg-[#5D1A75]/10 text-[#5D1A75] px-3 py-1 rounded-full text-sm font-medium mb-3 ${
+                isLeft ? "ml-auto" : ""
+              }`}
+            >
+              <Calendar className="w-3 h-3" />
+              {achievement.year}
             </div>
-          )}
 
-          {/* Year badge */}
-          <div
-            className={`inline-flex items-center gap-2 bg-[#5D1A75]/10 text-[#5D1A75] px-3 py-1 rounded-full text-sm font-medium mb-3 ${
-              isLeft ? "ml-auto" : ""
-            }`}
-          >
-            <Calendar className="w-3 h-3" />
-            {achievement.year}
+            {/* Title */}
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-[#5D1A75] transition-colors duration-300">
+              {achievement.title}
+            </h3>
+
+            {/* Description */}
+            <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-2">
+              {achievement.description}
+            </p>
+
+            {/* Read more indicator */}
+            <span className="text-sm text-[#5D1A75] font-medium mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 inline-block">
+              Read more →
+            </span>
           </div>
-
-          {/* Title */}
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-            {achievement.title}
-          </h3>
-
-          {/* Description */}
-          <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
-            {achievement.description}
-          </p>
-        </div>
+        </Link>
       </div>
 
       {/* Timeline icon */}
