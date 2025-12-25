@@ -113,8 +113,8 @@ export function Header() {
             className="hidden md:flex rounded-lg text-white hover:opacity-90 transition-opacity"
             style={{ backgroundColor: "#5D1A75" }}
           >
-            <Link href="/#join-us" className="flex items-center gap-2">
-              Join Us
+            <Link href="/admin/login" className="flex items-center gap-2">
+              Login
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
@@ -167,10 +167,10 @@ export function Header() {
                     style={{ backgroundColor: "#5D1A75" }}
                   >
                     <Link
-                      href="/#join-us"
+                      href="/admin/login"
                       className="flex items-center justify-center gap-2"
                     >
-                      Join Us
+                      Login
                       <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>

@@ -128,10 +128,10 @@ export function Footer({ settings }: FooterProps) {
             <ul className="space-y-3">
               <li>
                 <Link
-                  href="/#join-us"
+                  href="/admin/login"
                   className="text-gray-600 dark:text-gray-400 hover:text-[#5D1A75] transition-colors duration-300"
                 >
-                  Join Us
+                  Login
                 </Link>
               </li>
               <li>
