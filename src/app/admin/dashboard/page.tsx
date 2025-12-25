@@ -12,12 +12,10 @@ import {
   Images,
   Megaphone,
   Trophy,
-  Layers,
   Users,
   Plus,
   TrendingUp,
   Activity,
-  Calendar,
   Eye,
   Edit3,
   ArrowUpRight,
@@ -172,28 +170,6 @@ export default async function AdminDashboard() {
 
   return (
     <div className="space-y-8">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Dashboard
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">
-            Welcome back! Here's what's happening with your content.
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Badge variant="outline" className="flex items-center gap-1">
-            <Activity className="h-3 w-3" />
-            Live
-          </Badge>
-          <Button variant="outline" size="sm">
-            <Calendar className="h-4 w-4 mr-2" />
-            Last 30 days
-          </Button>
-        </div>
-      </div>
-
       {/* Stats Cards */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {statsCards.map((card) => (

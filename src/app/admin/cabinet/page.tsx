@@ -14,16 +14,7 @@ export default async function AdminCabinetPage() {
   const teamMembers = await getTeamMembers();
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          Cabinet Management
-        </h1>
-        <p className="text-gray-600 dark:text-gray-400">
-          Manage team members and leadership cabinet
-        </p>
-      </div>
-
+    <div>
       <TeamMemberManager initialTeamMembers={teamMembers} />
     </div>
   );

@@ -21,7 +21,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Plus, Edit, Trash2, Save, X, Images } from "lucide-react";
+import {
+  Plus,
+  Edit,
+  Trash2,
+  Save,
+  X,
+  Images,
+  ArrowUp,
+  ArrowDown,
+} from "lucide-react";
 import Image from "next/image";
 import { ImageUpload } from "./image-upload";
 
@@ -132,6 +141,51 @@ export function SliderManager({ initialImages }: SliderManagerProps) {
       }
     } catch (error) {
       console.error("Error deleting image:", error);
+    }
+  };
+
+  const handleReorder = async (id: string, direction: "up" | "down") => {
+    const sortedImages = [...images].sort((a, b) => a.order - b.order);
+    const currentIndex = sortedImages.findIndex((img) => img.id === id);
+
+    if (
+      (direction === "up" && currentIndex === 0) ||
+      (direction === "down" && currentIndex === sortedImages.length - 1)
+    ) {
+      return;
+    }
+
+    const newImages = [...sortedImages];
+    const targetIndex =
+      direction === "up" ? currentIndex - 1 : currentIndex + 1;
+
+    // Swap the images
+    [newImages[currentIndex], newImages[targetIndex]] = [
+      newImages[targetIndex],
+      newImages[currentIndex],
+    ];
+
+    // Update order values
+    newImages.forEach((img, index) => {
+      img.order = index + 1;
+    });
+
+    setImages(newImages);
+
+    // Update in database
+    try {
+      await fetch("/api/admin/slider/reorder", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          images: newImages.map((img) => ({
+            id: img.id,
+            order: img.order,
+          })),
+        }),
+      });
+    } catch (error) {
+      console.error("Error reordering images:", error);
     }
   };
 
@@ -287,6 +341,31 @@ export function SliderManager({ initialImages }: SliderManagerProps) {
                   </span>
 
                   <div className="flex space-x-1">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => handleReorder(image.id, "up")}
+                      disabled={
+                        images
+                          .sort((a, b) => a.order - b.order)
+                          .findIndex((img) => img.id === image.id) === 0
+                      }
+                    >
+                      <ArrowUp className="h-3 w-3" />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => handleReorder(image.id, "down")}
+                      disabled={
+                        images
+                          .sort((a, b) => a.order - b.order)
+                          .findIndex((img) => img.id === image.id) ===
+                        images.length - 1
+                      }
+                    >
+                      <ArrowDown className="h-3 w-3" />
+                    </Button>
                     <Button
                       size="sm"
                       variant="outline"
