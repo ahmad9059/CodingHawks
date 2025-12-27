@@ -238,7 +238,7 @@ export function Footer({ settings }: FooterProps) {
                   Address
                 </p>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  123 Finance Street, City, Country
+                  Agriculture Complex, Old Shuja Abad Rd, Multan
                 </p>
               </div>
             </div>
