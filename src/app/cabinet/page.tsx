@@ -49,7 +49,7 @@ export default async function CabinetPage() {
             <div className="relative flex flex-col md:flex-row items-center gap-6 p-6 md:p-8">
               {/* Circular Image */}
               <div className="relative flex-shrink-0">
-                <div className="relative w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden ring-4 ring-purple-500/30 shadow-xl">
+                <div className="relative w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden ring-4 ring-purple-400 shadow-xl">
                   {supervisor.imageUrl ? (
                     <Image
                       src={supervisor.imageUrl}
@@ -63,7 +63,6 @@ export default async function CabinetPage() {
                     </div>
                   )}
                 </div>
-                {/* Crown badge */}
               </div>
 
               {/* Content */}
