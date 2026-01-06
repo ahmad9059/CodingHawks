@@ -130,23 +130,23 @@ export function Fields({ fields }: { fields: Field[] }) {
   return (
     <section
       id="fields"
-      className="py-16 lg:py-24 bg-gray-50/50 dark:bg-gray-900/50"
+      className="py-12 sm:py-16 lg:py-24 bg-gray-50/50 dark:bg-gray-900/50"
     >
-      <div className="container mx-auto px-4 md:px-6">
-        <MotionWrapper className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-[#5D1A75]/10 text-[#5D1A75] px-4 py-2 rounded-full text-sm font-medium mb-6">
-            <Sparkles className="w-4 h-4" />
+      <div className="container mx-auto px-4 sm:px-6">
+        <MotionWrapper className="text-center mb-10 sm:mb-12 md:mb-16">
+          <div className="inline-flex items-center gap-2 bg-[#5D1A75]/10 text-[#5D1A75] px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6">
+            <Sparkles className="w-3 h-3 sm:w-4 sm:h-4" />
             What We Offer
           </div>
 
           <h2
-            className="text-3xl md:text-4xl lg:text-5xl font-headline text-gray-900 dark:text-white mb-6"
+            className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-headline text-gray-900 dark:text-white mb-4 sm:mb-6"
             style={{ fontWeight: 700 }}
           >
             Our Fields of <span className="text-[#5D1A75]">Expertise</span>
           </h2>
 
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed px-2">
             We offer specialized tracks to help our members grow in the most
             in-demand areas of technology, with hands-on projects and
             industry-focused learning paths.
@@ -154,7 +154,7 @@ export function Fields({ fields }: { fields: Field[] }) {
         </MotionWrapper>
 
         <motion.div
-          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto"
+          className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"

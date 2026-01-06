@@ -70,7 +70,7 @@ export function Hero({
   ];
 
   return (
-    <section className="relative flex min-h-[100vh] items-center justify-center overflow-hidden bg-background -mt-20 pt-20 py-16 text-center">
+    <section className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-background -mt-20 pt-20 py-8 sm:py-12 md:py-16 text-center">
       {/* Background Image Slider */}
       <BackgroundSlider
         images={backgroundImages}
@@ -78,9 +78,9 @@ export function Hero({
         className="z-0"
       />
 
-      {/* Animated particles */}
+      {/* Animated particles - hidden on mobile for performance */}
       {isClient && (
-        <div className="absolute inset-0 z-[2]">
+        <div className="absolute inset-0 z-[2] hidden sm:block">
           {[...Array(20)].map((_, i) => (
             <motion.div
               key={i}
@@ -103,20 +103,22 @@ export function Hero({
       )}
 
       {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center p-4 max-w-5xl mx-auto">
+      <div className="relative z-10 flex flex-col items-center px-4 sm:px-6 max-w-5xl mx-auto">
         {/* Badge with sparkle animation */}
         <motion.div
           initial={{ opacity: 0, y: -20, scale: 0.8 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-4 relative"
+          className="mb-3 sm:mb-4 relative"
         >
-          <div className="rounded-full border border-white/30 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-md px-6 py-2 text-sm font-medium text-white shadow-xl">
-            <div className="flex items-center gap-2">
-              <Star className="h-4 w-4 text-purple-300 fill-purple-300" />
-              {settings.hero_title ||
-                "Fueling Creativity, Collaboration, and Coding Excellence"}
-              <Star className="h-4 w-4 text-purple-300 fill-purple-300" />
+          <div className="rounded-full border border-white/30 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-md px-3 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white shadow-xl">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <Star className="h-3 w-3 sm:h-4 sm:w-4 text-purple-300 fill-purple-300" />
+              <span className="line-clamp-1">
+                {settings.hero_title ||
+                  "Fueling Creativity, Collaboration, and Coding Excellence"}
+              </span>
+              <Star className="h-3 w-3 sm:h-4 sm:w-4 text-purple-300 fill-purple-300 hidden xs:block" />
             </div>
           </div>
           {/* Glow effect */}
@@ -128,7 +130,7 @@ export function Hero({
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="font-headline text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-white mb-6"
+          className="font-headline text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-white mb-4 sm:mb-6"
         >
           <span className="bg-gradient-to-r from-purple-600 via-purple-600 to-purple-600 bg-clip-text text-transparent drop-shadow-2xl">
             {settings.site_title || "Coding Hawks"}
@@ -142,7 +144,7 @@ export function Hero({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          className="mt-4 max-w-3xl text-xl md:text-2xl text-white/95 drop-shadow-lg font-medium leading-relaxed"
+          className="mt-2 sm:mt-4 max-w-3xl text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 drop-shadow-lg font-medium leading-relaxed px-2"
         >
           {settings.hero_subtitle || (
             <>
@@ -160,7 +162,7 @@ export function Hero({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-          className="mt-8 flex flex-wrap justify-center gap-6"
+          className="mt-6 sm:mt-8 flex flex-wrap justify-center gap-2 sm:gap-4 md:gap-6"
         >
           {features.map((feature, index) => (
             <motion.div
@@ -169,10 +171,12 @@ export function Hero({
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
               whileHover={{ scale: 1.05, y: -2 }}
-              className="flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm px-4 py-2 text-white/90 border border-white/20"
+              className="flex items-center gap-1.5 sm:gap-2 rounded-full bg-white/10 backdrop-blur-sm px-3 sm:px-4 py-1.5 sm:py-2 text-white/90 border border-white/20"
             >
-              <feature.icon className="h-4 w-4" />
-              <span className="text-sm font-medium">{feature.text}</span>
+              <feature.icon className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="text-xs sm:text-sm font-medium">
+                {feature.text}
+              </span>
             </motion.div>
           ))}
         </motion.div>
@@ -182,17 +186,17 @@ export function Hero({
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7, ease: "easeOut" }}
-          className="mt-12 flex flex-col sm:flex-row gap-6"
+          className="mt-8 sm:mt-12 flex flex-col sm:flex-row gap-3 sm:gap-6 w-full sm:w-auto px-4 sm:px-0"
         >
           <motion.div
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
-            className="relative group"
+            className="relative group w-full sm:w-auto"
           >
             <Button
               asChild
               size="lg"
-              className="relative rounded-xl px-8 py-4 text-lg font-semibold text-white shadow-2xl border-0 overflow-hidden hover:opacity-90 transition-opacity"
+              className="relative w-full sm:w-auto rounded-xl px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold text-white shadow-2xl border-0 overflow-hidden hover:opacity-90 transition-opacity"
               style={{ backgroundColor: "#5D1A75" }}
             >
               <Link href="/#join-us">
@@ -205,35 +209,40 @@ export function Hero({
           <motion.div
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
-            className="relative group"
+            className="relative group w-full sm:w-auto"
           >
             <Button
               asChild
               size="lg"
               variant="outline"
-              className="rounded-xl px-8 py-4 text-lg font-semibold bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 hover:border-white/50 shadow-xl"
+              className="w-full sm:w-auto rounded-xl px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 hover:border-white/50 shadow-xl"
             >
-              <Link href="/#about" className="flex items-center gap-2">
+              <Link
+                href="/#about"
+                className="flex items-center justify-center gap-2"
+              >
                 Learn More
-                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform duration-300" />
               </Link>
             </Button>
           </motion.div>
         </motion.div>
 
-        {/* Scroll indicator */}
+        {/* Scroll indicator - hidden on small screens */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.2 }}
-          className="absolute -bottom-20 left-1/2 -translate-x-1/2"
+          className="absolute -bottom-16 sm:-bottom-20 left-1/2 -translate-x-1/2 hidden sm:block"
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             className="flex flex-col items-center gap-2 text-white/60"
           >
-            <span className="text-sm font-medium">Scroll to explore</span>
+            <span className="text-xs sm:text-sm font-medium">
+              Scroll to explore
+            </span>
             <div className="h-6 w-4 rounded-full border-2 border-white/40 flex justify-center">
               <motion.div
                 animate={{ y: [0, 8, 0] }}

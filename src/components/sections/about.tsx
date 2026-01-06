@@ -14,19 +14,19 @@ export function About({ settings }: { settings: SiteSettings }) {
   return (
     <section
       id="about"
-      className="relative overflow-hidden py-20 lg:py-32 bg-background"
+      className="relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-32 bg-background"
     >
-      <div className="container relative mx-auto px-4 md:px-6">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+      <div className="container relative mx-auto px-4 sm:px-6">
+        <div className="grid items-center gap-8 sm:gap-10 md:gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
           <MotionWrapper>
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <div className="inline-flex items-center gap-2 rounded-full bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-600 dark:text-purple-400">
-                  <Rocket className="h-4 w-4" />
+            <div className="space-y-6 sm:space-y-8">
+              <div className="space-y-3 sm:space-y-4">
+                <div className="inline-flex items-center gap-2 rounded-full bg-purple-500/10 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-purple-600 dark:text-purple-400">
+                  <Rocket className="h-3 w-3 sm:h-4 sm:w-4" />
                   Innovation Hub
                 </div>
                 <h2
-                  className="font-headline text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+                  className="font-headline text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground"
                   style={{ fontWeight: 700 }}
                 >
                   {(() => {
@@ -47,31 +47,31 @@ export function About({ settings }: { settings: SiteSettings }) {
                 </h2>
               </div>
 
-              <div className="space-y-6">
-                <p className="text-lg text-foreground/90 md:text-xl leading-relaxed">
+              <div className="space-y-4 sm:space-y-6">
+                <p className="text-base sm:text-lg md:text-xl text-foreground/90 leading-relaxed">
                   {settings.about_description ||
                     "We're not just another coding society – we're a thriving ecosystem of passionate developers, innovators, and tech enthusiasts at MNS-University of Agriculture, Multan."}
                 </p>
 
-                <p className="text-lg text-foreground/80 md:text-xl leading-relaxed">
+                <p className="text-base sm:text-lg md:text-xl text-foreground/80 leading-relaxed">
                   {settings.about_mission ||
                     "Our mission? To transform curious minds into industry-ready professionals through hands-on projects, collaborative learning, and cutting-edge technology exploration."}
                 </p>
 
-                <div className="grid grid-cols-2 gap-4 pt-4">
-                  <div className="space-y-2">
-                    <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+                <div className="grid grid-cols-2 gap-4 pt-2 sm:pt-4">
+                  <div className="space-y-1 sm:space-y-2">
+                    <div className="text-xl sm:text-2xl font-bold text-purple-600 dark:text-purple-400">
                       {settings.about_members_count || "500+"}
                     </div>
-                    <div className="text-lg text-foreground/70">
+                    <div className="text-sm sm:text-base md:text-lg text-foreground/70">
                       Active Members
                     </div>
                   </div>
-                  <div className="space-y-2">
-                    <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
+                  <div className="space-y-1 sm:space-y-2">
+                    <div className="text-xl sm:text-2xl font-bold text-indigo-600 dark:text-indigo-400">
                       {settings.about_projects_count || "50+"}
                     </div>
-                    <div className="text-lg text-foreground/70">
+                    <div className="text-sm sm:text-base md:text-lg text-foreground/70">
                       Projects Completed
                     </div>
                   </div>
@@ -80,9 +80,9 @@ export function About({ settings }: { settings: SiteSettings }) {
             </div>
           </MotionWrapper>
 
-          <div className="flex justify-center lg:justify-end">
+          <div className="flex justify-center lg:justify-end mt-8 lg:mt-0">
             <FloatingElement duration={4} yOffset={20}>
-              <div className="relative w-full max-w-2xl">
+              <div className="relative w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-2xl">
                 {/* Purple glow effect behind image */}
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-indigo-500/30 blur-3xl rounded-full scale-110"></div>
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-indigo-600/20 blur-2xl rounded-2xl"></div>
@@ -100,7 +100,7 @@ export function About({ settings }: { settings: SiteSettings }) {
                       },
                     }}
                   >
-                    <div className="relative overflow-hidden rounded-2xl">
+                    <div className="relative overflow-hidden rounded-xl sm:rounded-2xl">
                       <Image
                         src="/about.png"
                         alt={aboutImage.description}
