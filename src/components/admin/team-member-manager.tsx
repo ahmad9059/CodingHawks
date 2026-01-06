@@ -34,6 +34,7 @@ import {
   Instagram,
   Github,
   Globe,
+  Crown,
 } from "lucide-react";
 import Image from "next/image";
 import { CabinetImageUpload } from "./cabinet-image-upload";
@@ -50,6 +51,7 @@ type TeamMember = {
   website: string | null;
   order: number;
   isActive: boolean;
+  isSupervisor: boolean;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -75,6 +77,7 @@ export function TeamMemberManager({
     website: "",
     order: 0,
     isActive: true,
+    isSupervisor: false,
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -115,6 +118,7 @@ export function TeamMemberManager({
           website: "",
           order: 0,
           isActive: true,
+          isSupervisor: false,
         });
       }
     } catch (error) {
@@ -134,6 +138,7 @@ export function TeamMemberManager({
       website: member.website || "",
       order: member.order,
       isActive: member.isActive,
+      isSupervisor: member.isSupervisor,
     });
     setEditingId(member.id);
     setIsDialogOpen(true);
@@ -152,6 +157,7 @@ export function TeamMemberManager({
       website: "",
       order: teamMembers.length,
       isActive: true,
+      isSupervisor: false,
     });
     setIsDialogOpen(true);
   };
@@ -229,6 +235,7 @@ export function TeamMemberManager({
       website: "",
       order: 0,
       isActive: true,
+      isSupervisor: false,
     });
   };
 
@@ -393,6 +400,20 @@ export function TeamMemberManager({
 
             <div className="flex items-center space-x-2">
               <Switch
+                id="isSupervisor"
+                checked={formData.isSupervisor}
+                onCheckedChange={(checked) =>
+                  setFormData({ ...formData, isSupervisor: checked })
+                }
+              />
+              <Label htmlFor="isSupervisor" className="flex items-center gap-2">
+                <Crown className="h-4 w-4 text-purple-600" />
+                Society Supervisor (Full-width card at top)
+              </Label>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Switch
                 id="isActive"
                 checked={formData.isActive}
                 onCheckedChange={(checked) =>
@@ -444,6 +465,13 @@ export function TeamMemberManager({
                 <p className="text-sm text-primary font-medium mb-2">
                   {member.position}
                 </p>
+
+                {member.isSupervisor && (
+                  <div className="inline-flex items-center gap-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 text-xs px-2 py-1 rounded-full mb-2">
+                    <Crown className="h-3 w-3" />
+                    Supervisor
+                  </div>
+                )}
 
                 {member.bio && (
                   <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">

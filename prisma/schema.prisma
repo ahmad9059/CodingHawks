@@ -80,19 +80,20 @@ model Field {
 }
 
 model TeamMember {
-  id        String   @id @default(cuid())
-  name      String
-  position  String
-  imageUrl  String?
-  bio       String?
-  linkedin  String?
-  instagram String?
-  github    String?
-  website   String?
-  order     Int      @default(0)
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String   @id @default(cuid())
+  name         String
+  position     String
+  imageUrl     String?
+  bio          String?
+  linkedin     String?
+  instagram    String?
+  github       String?
+  website      String?
+  order        Int      @default(0)
+  isActive     Boolean  @default(true)
+  isSupervisor Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   @@map("team_members")
 }

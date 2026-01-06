@@ -47,6 +47,7 @@ export async function POST(request: NextRequest) {
         website: data.website || null,
         order: data.order || 0,
         isActive: data.isActive,
+        isSupervisor: data.isSupervisor || false,
       },
     });
     return NextResponse.json(teamMember);
@@ -78,6 +79,7 @@ export async function PUT(request: NextRequest) {
         website: data.website || null,
         order: data.order || 0,
         isActive: data.isActive,
+        isSupervisor: data.isSupervisor || false,
       },
     });
     return NextResponse.json(teamMember);

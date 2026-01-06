@@ -7,7 +7,7 @@ export default function CabinetLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="relative bg-gradient-to-b from-background to-secondary/20 py-20 lg:py-32 overflow-hidden">
+    <section className="relative bg-gradient-to-b from-background to-secondary/20 py-12 lg:py-8 overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 right-10 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl"></div>
@@ -16,19 +16,19 @@ export default function CabinetLayout({
       </div>
 
       <div className="container relative mx-auto px-4 md:px-6">
-        <MotionWrapper amount={0.2} className="mb-20 text-center">
-          <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 rounded-full bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-600 dark:text-purple-400 mb-4">
+        <MotionWrapper amount={0.2} className="mb-8 text-center">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 rounded-full bg-purple-500/10 px-4 py-1.5 text-sm font-medium text-purple-600 dark:text-purple-400 mb-2">
               <Users className="h-4 w-4" />
               Leadership Team
             </div>
-            <h1 className="font-headline text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+            <h1 className="font-headline text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
               Our{" "}
               <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 Cabinet
               </span>
             </h1>
-            <p className="mx-auto mt-6 max-w-3xl text-lg text-foreground/80 md:text-xl leading-relaxed">
+            <p className="mx-auto mt-3 max-w-2xl text-base text-foreground/80 md:text-lg leading-relaxed">
               Meet the dedicated leaders who drive our vision forward and shape
               the future of technology education and innovation.
             </p>
