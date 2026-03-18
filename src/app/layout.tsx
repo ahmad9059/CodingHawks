@@ -10,6 +10,7 @@ import { Loader } from "@/components/loader";
 import { AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useSiteSettings } from "@/hooks/use-site-settings";
+import { applyThemePreference, getStoredThemePreference } from "@/lib/theme";
 
 const fontBody = Inter({
   subsets: ["latin"],
@@ -36,12 +37,7 @@ export default function RootLayout({
   const isAdminPage = pathname?.startsWith("/admin");
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme") || "dark";
-    if (storedTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    applyThemePreference(getStoredThemePreference());
     setThemeLoaded(true);
 
     const timer = setTimeout(() => setLoading(false), 2200);

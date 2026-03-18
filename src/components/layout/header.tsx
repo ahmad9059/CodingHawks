@@ -7,6 +7,13 @@ import { Menu, Moon, Sun, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
+import {
+  applyThemePreference,
+  DEFAULT_THEME,
+  getStoredThemePreference,
+  storeThemePreference,
+  type ThemePreference,
+} from "@/lib/theme";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -16,29 +23,22 @@ const navLinks = [
 ];
 
 function useTheme() {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState<ThemePreference>(DEFAULT_THEME);
 
   useEffect(() => {
-    const storedTheme =
-      typeof window !== "undefined"
-        ? localStorage.getItem("theme") || "dark"
-        : "dark";
+    const storedTheme = getStoredThemePreference();
+    applyThemePreference(storedTheme);
     setTheme(storedTheme);
   }, []);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (theme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-      localStorage.setItem("theme", theme);
-    }
-  }, [theme]);
+  const setThemePreference = (nextTheme: ThemePreference) => {
+    applyThemePreference(nextTheme);
+    storeThemePreference(nextTheme);
+    setTheme(nextTheme);
+  };
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    setThemePreference(theme === "light" ? "dark" : "light");
   };
 
   return { theme, toggleTheme };
